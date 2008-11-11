@@ -1,3 +1,6 @@
+"source
+	source <sfile>:p:h/a.vim
+
 "setting {{{1
 	"setlocal completefunc=hexing#hexing_autoload#HX_cpp_user_complete
 	setlocal autoread 
