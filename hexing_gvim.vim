@@ -66,6 +66,7 @@
 		let g:Tlist_Show_One_File = 1
 		let g:Tlist_Sort_Type = 'name'
 		let g:Tlist_File_Fold_Auto_Close = 1
+		let g:Tlist_Ctags_Cmd = $VIM . '/vimfiles/bin/ctags.exe'
 
 	"matchparen.vim {{{2
 		let g:loaded_matchparen = 0
