@@ -73,9 +73,8 @@
 
 	"autoclose.vim {{{2
 		let g:autoclose_on = 1
-"autocmd {{{1
-		autocmd Filetype cpp call hexing#hexing_autoload#HX_ftplugin_cpp()
 
+"autocmd {{{1
 		autocmd BufEnter * exec "cd %:p:h"
 
 "maps {{{1 

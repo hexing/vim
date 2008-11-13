@@ -341,10 +341,6 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	endfunction
 
 "file type plugin functions {{{2
-		function! hexing#hexing_autoload#HX_ftplugin_cpp() "{{{3
-			source $VIM/vimfiles/autoload/hexing/hexing_cpp.vim
-		endfunction
-
 		function! hexing#hexing_autoload#HX_toggle_quickfix_wnd() "{{{3
 			let l:buf_count = bufnr('$')
 			let l:i = 1
