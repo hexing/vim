@@ -14,6 +14,7 @@
 	set number ruler showcmd showmode "splitright
 	set nospell nocompatible
 	set incsearch hlsearch ignorecase
+	set shortmess=oOtTI
 
 	set nowrap whichwrap=b,s	"不自动换行，只有<BS><SPACE>可以在行间回绕
 	set scrolloff=8	scroll=16 sidescroll=9 sidescrolloff=18

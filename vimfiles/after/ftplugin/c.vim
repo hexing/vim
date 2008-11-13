@@ -21,9 +21,9 @@ call omni#cpp#complete#Init()
 	"inoremap <buffer> <silent> [ []<Left>
 	inoremap <buffer> <silent> <CR> <C-R>=pumvisible() ? "\<lt>C-Y>\<lt>C-R>=hexing#hexing_autoload#HX_setion_complete()\<lt>CR>" : "\<lt>CR>"<CR>
 	inoremap <buffer> <silent> <A-u> <C-R>=hexing#hexing_autoload#HX_popup_setion_completion('*')<CR>
-	inoremap <buffer> <silent> <F7> <Esc>:update <Bar> make!<CR>
+	inoremap <buffer> <silent> <F7> <Esc>:update <Bar> make! --quiet <Bar> cw<CR>
 
-	nnoremap <buffer> <silent> <F7> :update <Bar> make!<CR>
+	nnoremap <buffer> <silent> <F7> :update <Bar> make! --quiet <Bar> cw<CR>
 	nnoremap <buffer> <silent> <F3> :AT<CR>
 	nnoremap <buffer> <silent> <F8> :TlistToggle<CR>
 	nnoremap <buffer> <silent> <A-t> :tnext<CR>
