@@ -45,7 +45,10 @@
 	set noswapfile	"可在编辑过程中禁止使用交换文件
 
 
-	set title titlestring=山横春烟
+	"set title titlestring=%<%F%=%l/%L-%P titlelen=70
+	"set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+	"set title titlestring=山横春烟\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+	
 
 	set showtabline=0	"始终显示标签页
 	"set guitablabel=%{tabpagenr()}.%t\ %m	"每个tab上显示编号
@@ -76,6 +79,8 @@
 
 "autocmd {{{1
 		autocmd BufEnter * exec "cd %:p:h"
+		"auto BufEnter * let &titlestring = hostname() . "/" . expand("%:p")
+		
 
 "maps {{{1 
 	"normal mode {{{2
@@ -125,6 +130,7 @@
 				set guioptions+=b guioptions+=L
 			endif
 			autocmd GUIEnter * simalt ~x	"设定 windows 下 gvim 启动时最大化
+			set guifont=Arial_monospaced_for_SAP:h11.8:w6.7
 		endif
 	endif
 "}}}1

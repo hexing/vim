@@ -10,6 +10,8 @@ call omni#cpp#complete#Init()
 	setlocal makeprg=make
 	setlocal formatoptions-=r formatoptions-=o
 
+	setlocal guifont=Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7
+
 	setlocal foldtext=CppFoldText()
 	function! CppFoldText()
 		return (v:foldstart - v:foldend) . ' lines foldlevel: ' . v:foldlevel . ' ' . getline(v:foldstart)
