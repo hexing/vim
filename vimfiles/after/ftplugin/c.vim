@@ -10,7 +10,8 @@ call omni#cpp#complete#Init()
 	setlocal makeprg=make
 	setlocal formatoptions-=r formatoptions-=o
 
-	setlocal guifont=Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b
+	"setlocal guifont=Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b
+	"setlocal guifont=Vera\ Sans\ YuanTi\ Mono:h11.8:w6.3:b
 
 	setlocal foldtext=CppFoldText()
 	function! CppFoldText()

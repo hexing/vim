@@ -20,7 +20,7 @@ hi Cursor		gui=NONE guifg=#000000 guibg=#00FF00		cterm=NONE ctermfg=black	   cte
 hi CursorIM		gui=NONE guifg=fg	   guibg=#FF0000		cterm=NONE ctermfg=black	   ctermbg=red  
 hi CursorColumn	gui=NONE guifg=NONE	   guibg=#001630 
 hi CursorLine	gui=NONE guifg=NONE	   guibg=#0e2a1a 
-hi Directory	gui=NONE guifg=#20B2AA guibg=bg				cterm=NONE ctermfg=darkcyan	   ctermbg=black 
+hi Directory	gui=UNDERCURL guifg=#20B2AA guibg=bg				cterm=NONE ctermfg=darkcyan	   ctermbg=black 
 hi DiffAdd		gui=NONE guifg=fg	   guibg=#008B8B		cterm=NONE ctermfg=white	   ctermbg=darkcyan  
 hi DiffChange	gui=NONE guifg=fg	   guibg=#008B00		cterm=NONE ctermfg=white	   ctermbg=darkgreen  
 hi DiffDelete	gui=NONE guifg=#8B3A62 guibg=bg				cterm=NONE ctermfg=darkmagenta ctermbg=black
@@ -65,7 +65,7 @@ hi WarningMsg	gui=BOLD guifg=#FFFF00 guibg=bg			cterm=NONE ctermfg=lightyellow c
 hi WildMenu		gui=BOLD guifg=#000000 guibg=#7FFF00	cterm=BOLD ctermfg=black	   ctermbg=darkgreen 
 
 """"""\ Syntax highlighting groups \"""""" {{{1
-hi Comment	gui=NONE guifg=#3F3F00 guibg=bg		cterm=NONE ctermfg=grey ctermbg=black
+hi Comment	gui=ITALIC guifg=#3F3F00 guibg=bg		cterm=NONE ctermfg=grey ctermbg=black
 hi Constant	gui=NONE guifg=#87CEEB guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi String		gui=NONE guifg=#408080 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Character	gui=NONE guifg=#90EE90 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
@@ -73,7 +73,7 @@ hi Constant	gui=NONE guifg=#87CEEB guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg
 	hi Boolean		gui=NONE guifg=#FF8080 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Float		gui=NONE guifg=#6495ED guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 hi Identifier	gui=NONE guifg=#FFFF80 guibg=bg		cterm=NONE ctermfg=lightcyan ctermbg=black
-	hi Function	gui=BOLD guifg=yellow guibg=bg		cterm=NONE ctermfg=lightcyan ctermbg=black
+	hi Function	gui=UNDERLINE guifg=yellow guibg=bg		cterm=NONE ctermfg=lightcyan ctermbg=black
 hi Statement	gui=NONE guifg=#006C00 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Conditional	gui=NONE guifg=#4169E1 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Repeat		gui=NONE guifg=#1874CD guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
