@@ -20,7 +20,7 @@ hi Cursor		gui=NONE guifg=#000000 guibg=#00FF00		cterm=NONE ctermfg=black	   cte
 hi CursorIM		gui=NONE guifg=fg	   guibg=#FF0000		cterm=NONE ctermfg=black	   ctermbg=red  
 hi CursorColumn	gui=NONE guifg=NONE	   guibg=#001630 
 hi CursorLine	gui=NONE guifg=NONE	   guibg=#0e2a1a 
-hi Directory	gui=UNDERCURL guifg=#20B2AA guibg=bg				cterm=NONE ctermfg=darkcyan	   ctermbg=black 
+hi Directory	gui=UNDERCURL guifg=#20B2AA guibg=bg		cterm=NONE ctermfg=darkcyan	   ctermbg=black 
 hi DiffAdd		gui=NONE guifg=fg	   guibg=#008B8B		cterm=NONE ctermfg=white	   ctermbg=darkcyan  
 hi DiffChange	gui=NONE guifg=fg	   guibg=#008B00		cterm=NONE ctermfg=white	   ctermbg=darkgreen  
 hi DiffDelete	gui=NONE guifg=#8B3A62 guibg=bg				cterm=NONE ctermfg=darkmagenta ctermbg=black
@@ -35,7 +35,7 @@ hi FoldColumn	gui=NONE guifg=#FF8000 guibg=#104E8B		cterm=NONE ctermfg=white	   
 hi SpecialKey	gui=NONE guifg=#000000 guibg=#00008B		cterm=NONE ctermfg=black	   ctermbg=darkblue 
 "hi SignColumn
 hi IncSearch	gui=BOLD	  guifg=#FF0000 guibg=bg			cterm=BOLD		ctermfg=red		 ctermbg=black
-hi LineNr		gui=underline guifg=#607B8B guibg=#121212		cterm=underline ctermfg=darkgrey ctermbg=black
+hi LineNr		gui=UNDERLINE guifg=#607B8B guibg=#121212		cterm=underline ctermfg=darkgrey ctermbg=black
 hi MatchParen	gui=BOLD	  guifg=red	guibg=yellow
 hi ModeMsg		gui=NONE	  guifg=#7CFC00 guibg=#00688B		cterm=NONE		ctermfg=yellow	 ctermbg=darkcyan
 hi MoreMsg		gui=BOLD	  guifg=#00FF7F guibg=bg			cterm=BOLD		ctermfg=darkcyan ctermbg=black
@@ -66,7 +66,7 @@ hi WildMenu		gui=BOLD guifg=#000000 guibg=#7FFF00	cterm=BOLD ctermfg=black	   ct
 
 """"""\ Syntax highlighting groups \"""""" {{{1
 hi Comment	gui=ITALIC guifg=#3F3F00 guibg=bg		cterm=NONE ctermfg=grey ctermbg=black
-hi Constant	gui=NONE guifg=#87CEEB guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
+hi Constant	gui=ITALIC guifg=#87CEEB guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi String		gui=NONE guifg=#408080 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Character	gui=NONE guifg=#90EE90 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Number		gui=NONE guifg=#6495ED guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
@@ -77,17 +77,17 @@ hi Identifier	gui=NONE guifg=#FFFF80 guibg=bg		cterm=NONE ctermfg=lightcyan cter
 hi Statement	gui=NONE guifg=#006C00 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Conditional	gui=NONE guifg=#4169E1 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Repeat		gui=NONE guifg=#1874CD guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
-	hi Label		gui=NONE guifg=#1874CD guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
+	hi Label		gui=ITALIC guifg=#1874CD guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Operator		gui=NONE guifg=#4169E1 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
-	hi Keyword		gui=NONE guifg=#007600 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
-	hi Exception	gui=NONE guifg=yellow guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
+	hi Keyword		gui=ITALIC guifg=#007600 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
+	hi Exception	gui=ITALIC guifg=yellow guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 hi PreProc	gui=NONE guifg=#8470FF guibg=bg		cterm=NONE ctermfg=magenta ctermbg=black
-	hi Include		gui=NONE guifg=#8A2BE2 guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
-	hi Define		gui=NONE guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
+	hi Include		gui=ITALIC guifg=#8A2BE2 guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
+	hi Define		gui=ITALIC guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
 	hi Macro		gui=NONE guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
-	hi PreCondit	gui=BOLD guifg=yellow  guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black 
+	hi PreCondit	gui=UNDERCURL guifg=yellow  guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black 
 hi Type		gui=NONE guifg=#006C00 guibg=bg		cterm=NONE ctermfg=blue ctermbg=black
-	hi StorageClass	gui=NONE guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
+	hi StorageClass	gui=ITALIC guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
 	hi Structure	gui=NONE guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
 	hi Typedef		gui=BOLD guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
 hi Special	gui=NONE guifg=#FF8040 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
@@ -95,7 +95,7 @@ hi Special	gui=NONE guifg=#FF8040 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=bl
 	hi Tag			gui=NONE guifg=#CD853F guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 	hi Delimiter	gui=NONE guifg=#EE9A49 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 	hi Debug		gui=NONE guifg=#DAA520 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
-hi Underlined	gui=underline guifg=#F0E68C guibg=bg		cterm=underline ctermfg=white		ctermbg=black
+hi Underlined	gui=UNDERLINE guifg=#F0E68C guibg=bg		cterm=underline ctermfg=white		ctermbg=black
 hi Ignore		gui=NONE	  guifg=#BFBFBF guibg=bg		cterm=NONE		ctermfg=grey		ctermbg=black
 hi Error		gui=NONE	  guifg=#F0E68C guibg=#FF00FF	cterm=NONE		ctermfg=lightyellow ctermbg=lightmagenta
 hi Todo			gui=NONE	  guifg=#00EEEE guibg=#551A8B	cterm=BOLD		ctermfg=lightcyan	ctermbg=darkgray 

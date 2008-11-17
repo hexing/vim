@@ -40,7 +40,7 @@ call omni#cpp#complete#Init()
 	iabbr <buffer> <silent>  #n #ifndef<CR>#endif<Up><End>
 	iabbr <buffer> <silent> tchar TCHAR
 	inorea <buffer> <silent>  _ _("")<Left><Left>
-	inorea <buffer> <silent>  _T _T("")<Left><Left>
+	inorea <buffer> <silent>  _t _T("")<Left><Left>
 	"iabbr <buffer> <silent>  ' _T('')<Left><Left>
 	"iabbr <buffer> <silent>  { {<CR>}<Up><End><CR>
 	"iabbr <buffer> <silent>  typ typedef

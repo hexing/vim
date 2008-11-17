@@ -32,3 +32,5 @@ if version >= 508 || !exists("did_cpp_syntax_inits")
 
 	delcommand HiLink
 endif
+
+hi cppAccess gui=UNDERCURL guifg=#00A600 guibg=bg		cterm=UNDERCURL ctermfg=lightgreen ctermbg=black
