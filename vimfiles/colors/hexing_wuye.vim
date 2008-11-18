@@ -70,11 +70,11 @@ hi Constant	gui=ITALIC guifg=#87CEEB guibg=bg		cterm=NONE ctermfg=darkcyan cterm
 	hi String		gui=NONE guifg=#408080 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Character	gui=NONE guifg=#90EE90 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Number		gui=NONE guifg=#6495ED guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
-	hi Boolean		gui=NONE guifg=#FF8080 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
+	hi Boolean		gui=ITALIC guifg=#FF8080 guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 	hi Float		gui=NONE guifg=#6495ED guibg=bg		cterm=NONE ctermfg=darkcyan ctermbg=black
 hi Identifier	gui=NONE guifg=#FFFF80 guibg=bg		cterm=NONE ctermfg=lightcyan ctermbg=black
 	hi Function	gui=UNDERLINE guifg=yellow guibg=bg		cterm=NONE ctermfg=lightcyan ctermbg=black
-hi Statement	gui=NONE guifg=#006C00 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
+hi Statement	gui=ITALIC guifg=#006C00 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Conditional	gui=NONE guifg=#4169E1 guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Repeat		gui=NONE guifg=#1874CD guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
 	hi Label		gui=ITALIC guifg=#1874CD guibg=bg		cterm=NONE ctermfg=lightgreen ctermbg=black
@@ -84,18 +84,18 @@ hi Statement	gui=NONE guifg=#006C00 guibg=bg		cterm=NONE ctermfg=lightgreen cter
 hi PreProc	gui=NONE guifg=#8470FF guibg=bg		cterm=NONE ctermfg=magenta ctermbg=black
 	hi Include		gui=ITALIC guifg=#8A2BE2 guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
 	hi Define		gui=ITALIC guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
-	hi Macro		gui=NONE guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
+	hi Macro		gui=ITALIC guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
 	hi PreCondit	gui=UNDERCURL guifg=yellow  guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black 
-hi Type		gui=NONE guifg=#006C00 guibg=bg		cterm=NONE ctermfg=blue ctermbg=black
+hi Type		gui=ITALIC guifg=#006C00 guibg=bg		cterm=NONE ctermfg=blue ctermbg=black
 	hi StorageClass	gui=ITALIC guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
-	hi Structure	gui=NONE guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
+	hi Structure	gui=ITALIC guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
 	hi Typedef		gui=BOLD guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
-hi Special	gui=NONE guifg=#FF8040 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
+hi Special	gui=ITALIC guifg=#FF8040 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 	hi Specialchar	gui=NONE guifg=#CD6839 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 	hi Tag			gui=NONE guifg=#CD853F guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 	hi Delimiter	gui=NONE guifg=#EE9A49 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 	hi Debug		gui=NONE guifg=#DAA520 guibg=bg		cterm=NONE ctermfg=yellow ctermbg=black
 hi Underlined	gui=UNDERLINE guifg=#F0E68C guibg=bg		cterm=underline ctermfg=white		ctermbg=black
-hi Ignore		gui=NONE	  guifg=#BFBFBF guibg=bg		cterm=NONE		ctermfg=grey		ctermbg=black
-hi Error		gui=NONE	  guifg=#F0E68C guibg=#FF00FF	cterm=NONE		ctermfg=lightyellow ctermbg=lightmagenta
-hi Todo			gui=NONE	  guifg=#00EEEE guibg=#551A8B	cterm=BOLD		ctermfg=lightcyan	ctermbg=darkgray 
+hi Ignore		gui=UNDERCURL	  guifg=#BFBFBF guibg=bg		cterm=NONE		ctermfg=grey		ctermbg=black
+hi Error		gui=UNDERCURL	  guifg=#F0E68C guibg=#FF00FF	cterm=NONE		ctermfg=lightyellow ctermbg=lightmagenta
+hi Todo			gui=UNDERCURL	  guifg=#00EEEE guibg=#551A8B	cterm=BOLD		ctermfg=lightcyan	ctermbg=darkgray 
