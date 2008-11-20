@@ -10,6 +10,8 @@
 syntax keyword cppExtention	__super
 syntax keyword Keyword		tstring TCHAR
 syntax keyword Special		NULL
+syntax keyword cppSpecialKeyword	inline virtual explicit export extern const
+syntax keyword cppSpecialKeyword	typename template namespace
 
 syn match cOperator	'[.,:;&!~^|<>?=*+%()\[\]\-]'
 syn match cOperator	'[/*]\@<!/[/*]\@!'
@@ -25,12 +27,18 @@ if version >= 508 || !exists("did_cpp_syntax_inits")
 		command! -nargs=+ HiLink hi def link <args>
 	endif
 
-	HiLink cppExtention		Statement
+	HiLink cppExtention		cppSpecialKeyword
 	HiLink cppString		String
-	HiLink cppCharacter		Character
-	HiLink cOperator		Operator 
+	"HiLink cppCharacter		Character
+	"HiLink cOperator		Operator 
 
 	delcommand HiLink
 endif
 
-hi cppAccess gui=UNDERCURL guifg=#00A600 guibg=bg		cterm=UNDERCURL ctermfg=lightgreen ctermbg=black
+hi cppAccess gui=ITALIC guifg=#FF0008 guibg=bg		cterm=UNDERCURL ctermfg=lightgreen ctermbg=black
+hi cppSpecialKeyword gui=ITALIC guifg=#08FF08 guibg=bg		cterm=UNDERCURL ctermfg=lightgreen ctermbg=black
+
+hi link cppStatement		cppSpecialKeyword
+hi link cppOperator			cppSpecialKeyword
+hi link cppStorageClass		cppSpecialKeyword
+hi link cppCast				cppSpecialKeyword

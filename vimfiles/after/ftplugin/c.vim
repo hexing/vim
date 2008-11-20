@@ -1,6 +1,7 @@
 " OmniCppComplete initialization
 call omni#cpp#complete#Init()
 
+
 "setting {{{1
 	"setlocal completefunc=hexing#hexing_autoload#HX_cpp_user_complete
 	setlocal autoread 
