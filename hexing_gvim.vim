@@ -102,8 +102,8 @@
 	"insert mode {{{2
 		inoremap <CR> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>CR>"<CR>
 		inoremap <expr> <Esc> pumvisible() ? "\<C-E>" : "\<Esc>"
-		inoremap <C-CR> <End><CR>
-		inoremap <S-CR> <Up><End><CR>
+		inoremap <C-CR> <C-O>o
+		inoremap <S-CR> <C-O>O
 		inoremap <Home> <C-O>^
 
 		inoremap <A-o> <C-X><C-O>
@@ -131,7 +131,7 @@
 				set guioptions+=b guioptions+=L
 			endif
 			autocmd GUIEnter * simalt ~x	"设定 windows 下 gvim 启动时最大化
-			set guifont=Vera_Sans_YuanTi_Mono:h11.8:w6.7:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
+			"set guifont=Vera_Sans_YuanTi_Mono:h11.8:w6.7:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
 		endif
 	endif
 "}}}1
