@@ -41,6 +41,7 @@ hi ModeMsg		gui=NONE	  guifg=#7CFC00 guibg=#00688B		cterm=NONE		ctermfg=yellow	 
 hi MoreMsg		gui=BOLD	  guifg=#00FF7F guibg=bg			cterm=BOLD		ctermfg=darkcyan ctermbg=black
 hi NonText		gui=NONE	  guifg=#191970 guibg=#001220		cterm=NONE		ctermfg=darkblue ctermbg=black
 hi Normal		gui=NONE	  guifg=#E6E6FA guibg=black			cterm=NONE		ctermfg=white	 ctermbg=black
+"hi Normal		gui=NONE	  guifg=#E6E6FA guibg=#0E2A1A			cterm=NONE		ctermfg=white	 ctermbg=black
 "hi Pmenu
 "hi PmenuSel
 "hi PmenuSbar
@@ -85,7 +86,7 @@ hi PreProc	gui=NONE guifg=#8470FF guibg=bg		cterm=NONE ctermfg=magenta ctermbg=b
 	hi Include		gui=ITALIC guifg=#8A2BE2 guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
 	hi Define		gui=ITALIC guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
 	hi Macro		gui=ITALIC guifg=#8470FF guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black
-	hi PreCondit	gui=UNDERCURL guifg=yellow  guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black 
+	hi PreCondit	gui=NONE guifg=yellow  guibg=bg		cterm=NONE ctermfg=lightmagenta ctermbg=black 
 hi Type		gui=ITALIC guifg=#006C00 guibg=bg		cterm=NONE ctermfg=blue ctermbg=black
 	hi StorageClass	gui=ITALIC guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
 	hi Structure	gui=ITALIC guifg=#006C00 guibg=bg	cterm=NONE ctermfg=blue ctermbg=black
