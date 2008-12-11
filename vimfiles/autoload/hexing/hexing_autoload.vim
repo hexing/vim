@@ -371,3 +371,13 @@ function!  hexing#hexing_autoload#HX_close_buffer()
 	let l:cmd = l:cmd . "\<CR>"
 	exe l:cmd
 endfunction
+
+function!  hexing#hexing_autoload#HX_make()
+	exec "silent! normal! :update\<CR>"
+	exec "silent! normal! :make! --quiet\<CR>"
+	if (0 == v:shell_error)
+		exec "silent! normal! :cw\<CR>"
+	else
+		exec "silent! normal! :copen\<CR>"
+	endif
+endfunction
