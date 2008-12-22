@@ -6,7 +6,7 @@
 "autoload/hexing/hexing_autoload.vim
 "autoload/hexing/hexing_cpp.vim
 
-
+"ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f tag01 E:\develop\Core_Libs
 
 "term settings {{{1
 	colorscheme	hexing_wuye "source $VIMRUNTIME/colors/´ºÉ½Ã¼wuye.vim
@@ -79,7 +79,7 @@
 		let g:autoclose_on = 1
 
 "autocmd {{{1
-		autocmd BufEnter * exec "cd %:p:h"
+		set autochdir "autocmd BufEnter * exec "cd %:p:h"
 		"auto BufEnter * let &titlestring = hostname() . "/" . expand("%:p")
 		
 
@@ -89,10 +89,10 @@
 		nnoremap ? :nohlsearch<CR>?
 		nnoremap <silent> <F5> :nohlsearch<CR>
 		"nnoremap <Esc> :nohlsearch<CR><Esc>
+		nnoremap Y y$
 		nnoremap <Home> ^
 		"nnoremap <Home> 1_
 		"nnoremap 0 ^
-		map <kPoint> G
 		nnoremap <silent> <kPlus> :set foldlevel-=1<CR>
 		nnoremap <silent> <kMinus> :set foldlevel+=1<CR>
 		nnoremap <C-F4> :call hexing#hexing_autoload#HX_close_buffer()<CR>
@@ -116,6 +116,9 @@
 
 	"visual mode {{{2
 		vnoremap <silent> <A-F8> :call hexing#hexing_autoload#HX_align_lines()<CR>
+
+	"map
+		map <kPoint> G
 
 
 "command {{{1
