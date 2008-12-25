@@ -114,6 +114,9 @@
 		inoremap <A-k> <C-X><C-K>
 		inoremap <A-v> <C-X><C-V>
 
+		inoremap [ <C-R>=hexing#hexing_autoload#HX_paire('[')<CR>
+		inoremap ( <C-R>=hexing#hexing_autoload#HX_paire('(')<CR>
+
 	"visual mode {{{2
 		vnoremap <silent> <A-F8> :call hexing#hexing_autoload#HX_align_lines()<CR>
 
@@ -134,7 +137,7 @@
 				set guioptions+=b guioptions+=L
 			endif
 			autocmd GUIEnter * simalt ~x	"设定 windows 下 gvim 启动时最大化
-			set guifont=Vera_Sans_YuanTi_Mono:h11.8:w6.7:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
+			"set guifont=Vera_Sans_YuanTi_Mono:h11.8:w6.7:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
 		endif
 	endif
 "}}}1

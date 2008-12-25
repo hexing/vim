@@ -381,3 +381,13 @@ function!  hexing#hexing_autoload#HX_make()
 		exec "silent! normal! :copen\<CR>"
 	endif
 endfunction
+
+function!  hexing#hexing_autoload#HX_paire(ch)
+	let l:sCmd = ''
+	if '[' == a:ch
+		let l:sCmd = "[]\<Left>"
+	elseif '(' == a:ch
+		let l:sCmd = "()\<Left>"
+	endif
+	return l:sCmd
+endfunction
