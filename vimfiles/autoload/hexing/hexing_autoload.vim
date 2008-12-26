@@ -383,11 +383,65 @@ function!  hexing#hexing_autoload#HX_make()
 endfunction
 
 function!  hexing#hexing_autoload#HX_paire(ch)
+	let l:sCmd = a:ch
+
+	let l:lel = '(['
+	let l:ler = ')]'
+	let l:count = strlen(l:lel)
+
+	let l:i = 0
+	while l:i < l:count
+		if a:ch == l:lel[l:i]
+			let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
+			return l:sCmd
+		endif
+
+		let l:i += 1
+	endwhile
+
+	let l:i = 0
+	while l:i < l:count
+		if a:ch == l:ler[l:i]
+			let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
+			return l:sCmd
+		endif
+
+		let l:i += 1
+	endwhile
+
+	let l:lel = "\"'"
+	let l:count = strlen(l:lel)
+
+	let l:i = 0
+	while l:i < l:count
+		if a:ch == l:lel[l:i]
+			let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
+			if ''==l:sCmd
+				let l:sCmd = a:ch . l:lel[l:i] . "\<left>"
+			endif
+			return l:sCmd
+		endif
+
+		let l:i += 1
+	endwhile
+
+	return l:sCmd
+endfunction
+
+function <SID>HX_close_paire(l, r)
 	let l:sCmd = ''
-	if '[' == a:ch
-		let l:sCmd = "[]\<Left>"
-	elseif '(' == a:ch
-		let l:sCmd = "()\<Left>"
+	let l:le = getline('.')
+	let l:len = strlen(l:le)
+	if l:len>0
+		let l:chPrev = l:le[col('.')-2]
+		let l:chNext = l:le[col('.')-1]
+		if l:chPrev==a:l
+			if l:chNext==a:r
+				let l:sCmd = ''
+			else
+				let l:sCmd = a:r . "\<left>"
+			endif
+		endif
 	endif
 	return l:sCmd
 endfunction
