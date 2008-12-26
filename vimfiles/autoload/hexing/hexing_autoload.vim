@@ -385,8 +385,8 @@ endfunction
 function!  hexing#hexing_autoload#HX_paire(ch)
 	let l:sCmd = a:ch
 
-	let l:lel = '(['
-	let l:ler = ')]'
+	let l:lel = '([{'
+	let l:ler = ')]}'
 	let l:count = strlen(l:lel)
 
 	let l:i = 0
@@ -415,10 +415,7 @@ function!  hexing#hexing_autoload#HX_paire(ch)
 	let l:i = 0
 	while l:i < l:count
 		if a:ch == l:lel[l:i]
-			let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
-			if ''==l:sCmd
-				let l:sCmd = a:ch . l:lel[l:i] . "\<left>"
-			endif
+			let l:sCmd = <SID>HX_close_paire(a:ch, a:ch)
 			return l:sCmd
 		endif
 
@@ -428,8 +425,9 @@ function!  hexing#hexing_autoload#HX_paire(ch)
 	return l:sCmd
 endfunction
 
-function <SID>HX_close_paire(l, r)
-	let l:sCmd = ''
+function! <SID>HX_close_paire(l, r)
+	let l:sCmd = a:l . a:r . "\<left>"
+
 	let l:le = getline('.')
 	let l:len = strlen(l:le)
 	if l:len>0
@@ -437,11 +435,24 @@ function <SID>HX_close_paire(l, r)
 		let l:chNext = l:le[col('.')-1]
 		if l:chPrev==a:l
 			if l:chNext==a:r
-				let l:sCmd = ''
+				let l:sCmd = "\<Right>"
 			else
 				let l:sCmd = a:r . "\<left>"
 			endif
 		endif
 	endif
 	return l:sCmd
+endfunction
+
+function!  hexing#hexing_autoload#HX_keydown_Enter()
+	let l:le = getline('.')
+	let l:len = strlen(l:le)
+	let l:chPrev = l:le[col('.')-2]
+	let l:chNext = l:le[col('.')-1]
+
+	if '{'==l:chPrev && '}'==l:chNext
+		return "\<CR>\<Up>\<End>\<CR>"
+	endif
+
+	return "\<CR>"
 endfunction

@@ -25,6 +25,8 @@ call omni#cpp#complete#Init()
 	inoremap <buffer> <silent> <A-u> <C-R>=hexing#hexing_autoload#HX_popup_setion_completion('*')<CR>
 	"inoremap <buffer> <silent> <F7> <Esc>:update <Bar> make! --quiet <Bar> copen<CR>
 	inoremap <buffer> <silent> <F7> <Esc>:call hexing#hexing_autoload#HX_make()<CR>
+	inoremap <buffer> <silent> <CR> <C-R>=hexing#hexing_autoload#HX_keydown_Enter()<CR>
+	inoremap <buffer> <silent> " <C-R>=hexing#hexing_autoload#HX_paire('"')<CR>
 
 	"nnoremap <buffer> <silent> <F7> :update <Bar> make! --quiet <Bar> copen<CR>
 	nnoremap <buffer> <silent> <F7> :call hexing#hexing_autoload#HX_make()<CR>
@@ -36,7 +38,6 @@ call omni#cpp#complete#Init()
 
 "iabbr {{{1
 	"iabbr <buffer> <silent>  if if ()<Left>
-	iabbr <buffer> <silent>  { {<CR>}<Up><End><CR>
 	iabbr <buffer> <silent>  #i #include
 	iabbr <buffer> <silent>  #d #define
 	iabbr <buffer> <silent>  #f #ifdef<CR>#endif<Up><End>
