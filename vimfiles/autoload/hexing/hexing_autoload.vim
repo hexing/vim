@@ -450,8 +450,12 @@ function!  hexing#hexing_autoload#HX_keydown_Enter()
 	let l:chPrev = l:le[col('.')-2]
 	let l:chNext = l:le[col('.')-1]
 
-	if '{'==l:chPrev && '}'==l:chNext
-		return "\<CR>\<Up>\<End>\<CR>"
+	if '{'==l:chPrev
+		if '}'==l:chNext
+			return "\<CR>\<Up>\<End>\<CR>"
+		elseif ''==l:chNext
+			return "}\<Left>\<CR>\<Up>\<End>\<CR>"
+		endif
 	endif
 
 	return "\<CR>"
