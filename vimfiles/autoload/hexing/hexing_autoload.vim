@@ -386,20 +386,14 @@ endfunction
 function!  hexing#hexing_autoload#HX_paire(ch)
 	let l:sCmd = a:ch
 
-	let l:lel = '([{'
-	let l:ler = ')]}'
+	let l:lel = '([{<'
+	let l:ler = ')]}>'
 	let l:count = strlen(l:lel)
 
 	let l:i = 0
 	while l:i < l:count
 		if a:ch == l:lel[l:i]
 			let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
-			if '{'==a:ch
-				let l:line = getline('.')
-				if l:line=~'=\s*$' || l:line=~'\<class\>' || l:line=~'\<struct\>' || l:line=~'\<namespace\>'
-					let l:sCmd = a:ch . l:ler[l:i] . ";\<left>\<left>"
-				endif
-			endif
 			return l:sCmd
 		endif
 
@@ -466,4 +460,41 @@ function!  hexing#hexing_autoload#HX_keymap_Enter()
 	endif
 
 	return "\<CR>"
+endfunction
+
+function!  hexing#hexing_autoload#HX_keymap_Dkh()
+	let l:lCur = getline('.')
+	let l:lPrev = getline(line('.')-1)
+
+	if l:lCur =~ '=\s*$' || l:lPrev =~ '=\s*$'
+		return "{};\<Left>\<Left>"
+	endif
+
+	let l:arr = ['\<class\>','\<struct\>','\<namespace\>',]
+	for m in l:arr
+		if l:lCur =~ m || l:lPrev =~ m
+			return "{\<CR>};\<Up>\<End>\<CR>"
+		endif
+	endfor
+
+	if l:lCur =~ 'switch\s*(.*)' || l:lPrev =~ 'switch\s*(.*)'
+		return "{\<CR>};\<Up>\<End>\<CR>" . "case :\<CR>break;\<CR>" . "default:\<CR>break;" . "\<Up>\<Up>\<Up>\<Left>"
+	endif
+
+	return hexing#hexing_autoload#HX_paire('{')
+endfunction
+
+function!  hexing#hexing_autoload#HX_keymap_Colon()
+	let l:lCur = getline('.')
+	let l:lNxt = getline(line('.')+1)
+
+	if l:lNxt !~ '\<break\>;'
+		if l:lCur =~ '\<case\>\s\+$'
+			return ":\<CR>break;\<Up>\<End>\<Left>"
+		elseif l:lCur =~ '\<case\>$'
+			return " :\<CR>break;\<Up>\<End>\<Left>"
+		endif
+	endif
+
+	return ':'
 endfunction
