@@ -333,9 +333,9 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 				endwhile
 				let l:lb = strpart(l:lb, 0, l:i) . '/*' . strpart(l:lb, l:i, l:len-l:i)
 
-				let l:le = getline(a:lastline) . '*/'
+				let l:line = getline(a:lastline) . '*/'
 				call setline(a:firstline, l:lb)
-				call setline(a:lastline, l:le)
+				call setline(a:lastline, l:line)
 			endif
 		endif
 	endfunction
@@ -382,6 +382,7 @@ function!  hexing#hexing_autoload#HX_make()
 	endif
 endfunction
 
+"key map functions {{{2
 function!  hexing#hexing_autoload#HX_paire(ch)
 	let l:sCmd = a:ch
 
@@ -393,6 +394,12 @@ function!  hexing#hexing_autoload#HX_paire(ch)
 	while l:i < l:count
 		if a:ch == l:lel[l:i]
 			let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
+			if '{'==a:ch
+				let l:line = getline('.')
+				if l:line=~'=\s*$' || l:line=~'\<class\>' || l:line=~'\<struct\>' || l:line=~'\<namespace\>'
+					let l:sCmd = a:ch . l:ler[l:i] . ";\<left>\<left>"
+				endif
+			endif
 			return l:sCmd
 		endif
 
@@ -428,11 +435,11 @@ endfunction
 function! <SID>HX_close_paire(l, r)
 	let l:sCmd = a:l . a:r . "\<left>"
 
-	let l:le = getline('.')
-	let l:len = strlen(l:le)
+	let l:line = getline('.')
+	let l:len = strlen(l:line)
 	if l:len>0
-		let l:chPrev = l:le[col('.')-2]
-		let l:chNext = l:le[col('.')-1]
+		let l:chPrev = l:line[col('.')-2]
+		let l:chNext = l:line[col('.')-1]
 		if l:chPrev==a:l
 			if l:chNext==a:r
 				let l:sCmd = "\<Right>"
@@ -444,11 +451,11 @@ function! <SID>HX_close_paire(l, r)
 	return l:sCmd
 endfunction
 
-function!  hexing#hexing_autoload#HX_keydown_Enter()
-	let l:le = getline('.')
-	let l:len = strlen(l:le)
-	let l:chPrev = l:le[col('.')-2]
-	let l:chNext = l:le[col('.')-1]
+function!  hexing#hexing_autoload#HX_keymap_Enter()
+	let l:line = getline('.')
+	let l:len = strlen(l:line)
+	let l:chPrev = l:line[col('.')-2]
+	let l:chNext = l:line[col('.')-1]
 
 	if '{'==l:chPrev
 		if '}'==l:chNext
