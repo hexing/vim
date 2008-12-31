@@ -118,7 +118,6 @@
 		inoremap ] <C-R>=hexing#hexing_autoload#HX_paire(']')<CR>
 		inoremap ( <C-R>=hexing#hexing_autoload#HX_paire('(')<CR>
 		inoremap ) <C-R>=hexing#hexing_autoload#HX_paire(')')<CR>
-		"inoremap { <C-R>=hexing#hexing_autoload#HX_paire('{')<CR>
 		inoremap } <C-R>=hexing#hexing_autoload#HX_paire('}')<CR>
 		inoremap ' <C-R>=hexing#hexing_autoload#HX_paire("'")<CR>
 

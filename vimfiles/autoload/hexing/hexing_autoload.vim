@@ -28,8 +28,6 @@ let s:HX_cpp_dictionary = [
 			\{'word':"typedef ", 'abbr':'typd', 'menu':"", 'info':'info', 'kind':'v', 'icase':1, 'dup':1},
 			\{'word':"typename ", 'abbr':'typn', 'menu':"", 'info':'info', 'kind':'v', 'icase':1, 'dup':1},
 			\]
-"\{'word':"class \n{\n}\<Up>\<Up>\<End>", 'abbr':'class {}', 'menu':'menu', 'info':'info', 'kind':'v', 'icase':1, 'dup':1},
-"\{'word':"struct \n{\n}\<Up>\<Up>\<End>", 'abbr':'struct {}', 'menu':'menu', 'info':'info', 'kind':'v', 'icase':1, 'dup':1},
 
 "functions {{{1
 "complete functions {{{2
@@ -289,212 +287,99 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		endif
 	endfunction
 
-"commentfunctions {{{2
-	function! hexing#hexing_autoload#HX_comment_c() range "{{{3
-		let l:vm = visualmode()
-
-		if char2nr('v') == char2nr(l:vm)
-			if a:firstline == a:lastline
-				let l:s = getline(a:firstline)
-				let l:s = strpart(l:s, 0, col("'>")-1) . '*/' . strpart(l:s, col("'>")-1)
-				let l:s = strpart(l:s, 0, col("'<")-1) . '/*' . strpart(l:s, col("'<")-1) 
-				call setline(a:firstline, l:s)
-			else
-				let l:ss = getline(a:firstline)
-				let l:ss = strpart(l:ss, 0, col("'<")-1) . '/*' . strpart(l:ss, col("'<")-1)
-				call setline(a:firstline, l:ss)
-				let l:st = getline(a:lastline)
-				let l:st = strpart(l:st, 0, col("'>")-1) . '*/' . strpart(l:st, col("'>")-1)
-				call setline(a:lastline, l:st)
+"additional functions {{{2
+	function! hexing#hexing_autoload#HX_toggle_quickfix_wnd() "{{{3 
+		let l:buf_count = bufnr('$')
+		let l:i = 1
+		while l:i <= l:buf_count
+			if 'quickfix' == getbufvar(bufname(l:i), '&buftype')
+				break
 			endif
-		elseif char2nr('V') == char2nr(l:vm)
-			if a:firstline == a:lastline
-				let l:ln = getline(a:firstline)
-				let l:len = strlen(l:ln)
-				let l:i = 0
-				while l:i < l:len
-					if l:ln[l:i] !~ '\s'
-						break
-					endif
-					let l:i += 1
-				endwhile
-				let l:ln = strpart(l:ln, 0, l:i) . '/*' . strpart(l:ln, l:i, l:len-l:i)
-				let l:ln = l:ln . '*/'
-				call setline(a:firstline, l:ln)
-			else
-				let l:lb = getline(a:firstline)
-				let l:len = strlen(l:lb)
-				let l:i = 0
-				while l:i < l:len
-					if l:lb[l:i] !~ '\s'
-						break
-					endif
-					let l:i += 1
-				endwhile
-				let l:lb = strpart(l:lb, 0, l:i) . '/*' . strpart(l:lb, l:i, l:len-l:i)
-
-				let l:line = getline(a:lastline) . '*/'
-				call setline(a:firstline, l:lb)
-				call setline(a:lastline, l:line)
-			endif
+			let l:i += 1
+		endwhile
+		let l:cmd = 'silent! :'
+		if l:i <= l:buf_count
+			let l:cmd = l:cmd . 'cclose'
+		else
+			let l:cmd = l:cmd . 'copen'
 		endif
+		exe l:cmd
 	endfunction
 
-"file type plugin functions {{{2
-		function! hexing#hexing_autoload#HX_toggle_quickfix_wnd() "{{{3
-			let l:buf_count = bufnr('$')
-			let l:i = 1
-			while l:i <= l:buf_count
-				if 'quickfix' == getbufvar(bufname(l:i), '&buftype')
-					break
+	function!  hexing#hexing_autoload#HX_close_buffer() "{{{3
+		let l:cmd = 'normal :'
+		let l:buf_name = bufname('#')
+		if bufexists(l:buf_name)
+			let l:cmd = l:cmd . 'bwipeout'
+		else
+			let l:cmd = l:cmd . 'confirm quit'
+		endif
+		let l:cmd = l:cmd . "\<CR>"
+		exe l:cmd
+	endfunction
+
+"keymap functions {{{2
+		function!  hexing#hexing_autoload#HX_paire(ch) "{{{3
+			let l:sCmd = a:ch
+
+			let l:lel = '([{<'
+			let l:ler = ')]}>'
+			let l:count = strlen(l:lel)
+
+			let l:i = 0
+			while l:i < l:count
+				if a:ch == l:lel[l:i]
+					let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
+					return l:sCmd
 				endif
+
 				let l:i += 1
 			endwhile
-			let l:cmd = 'silent! :'
-			if l:i <= l:buf_count
-				let l:cmd = l:cmd . 'cclose'
-			else
-				let l:cmd = l:cmd . 'copen'
-			endif
-			exe l:cmd
+
+			let l:i = 0
+			while l:i < l:count
+				if a:ch == l:ler[l:i]
+					let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
+					return l:sCmd
+				endif
+
+				let l:i += 1
+			endwhile
+
+			let l:lel = "\"'"
+			let l:count = strlen(l:lel)
+
+			let l:i = 0
+			while l:i < l:count
+				if a:ch == l:lel[l:i]
+					let l:sCmd = <SID>HX_close_paire(a:ch, a:ch)
+					return l:sCmd
+				endif
+
+				let l:i += 1
+			endwhile
+
+			return l:sCmd
 		endfunction
 
-"additional functions {{{2
-function!  hexing#hexing_autoload#HX_close_buffer()
-	let l:cmd = 'normal :'
-	let l:buf_name = bufname('#')
-	if bufexists(l:buf_name)
-		let l:cmd = l:cmd . 'bwipeout'
-	else
-		let l:cmd = l:cmd . 'confirm quit'
-	endif
-	let l:cmd = l:cmd . "\<CR>"
-	exe l:cmd
-endfunction
-
-function!  hexing#hexing_autoload#HX_make()
-	exec "silent! normal! :update\<CR>"
-	exec "silent! normal! :make! --quiet\<CR>"
-	if (0 == v:shell_error)
-		exec "silent! normal! :cw\<CR>"
-	else
-		exec "silent! normal! :copen\<CR>"
-	endif
-endfunction
-
-"key map functions {{{2
-function!  hexing#hexing_autoload#HX_paire(ch)
-	let l:sCmd = a:ch
-
-	let l:lel = '([{<'
-	let l:ler = ')]}>'
-	let l:count = strlen(l:lel)
-
-	let l:i = 0
-	while l:i < l:count
-		if a:ch == l:lel[l:i]
-			let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
-			return l:sCmd
-		endif
-
-		let l:i += 1
-	endwhile
-
-	let l:i = 0
-	while l:i < l:count
-		if a:ch == l:ler[l:i]
-			let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
-			return l:sCmd
-		endif
-
-		let l:i += 1
-	endwhile
-
-	let l:lel = "\"'"
-	let l:count = strlen(l:lel)
-
-	let l:i = 0
-	while l:i < l:count
-		if a:ch == l:lel[l:i]
-			let l:sCmd = <SID>HX_close_paire(a:ch, a:ch)
-			return l:sCmd
-		endif
-
-		let l:i += 1
-	endwhile
-
-	return l:sCmd
-endfunction
-
-function! <SID>HX_close_paire(l, r)
-	let l:sCmd = a:l . a:r . "\<left>"
-
-	let l:line = getline('.')
-	let l:len = strlen(l:line)
-	if l:len>0
-		let l:chPrev = l:line[col('.')-2]
-		let l:chNext = l:line[col('.')-1]
-		if l:chPrev==a:l
-			if l:chNext==a:r
-				let l:sCmd = "\<Right>"
-			else
-				let l:sCmd = a:r . "\<left>"
+		function! <SID>HX_close_paire(l, r) "{{{3
+			let l:sCmd = a:r
+			if a:l==a:r
+				let l:sCmd = a:l . a:r . "\<left>"
 			endif
-		endif
-	endif
-	return l:sCmd
-endfunction
 
-function!  hexing#hexing_autoload#HX_keymap_Enter()
-	let l:line = getline('.')
-	let l:len = strlen(l:line)
-	let l:chPrev = l:line[col('.')-2]
-	let l:chNext = l:line[col('.')-1]
-
-	if '{'==l:chPrev
-		if '}'==l:chNext
-			return "\<CR>\<Up>\<End>\<CR>"
-		elseif ''==l:chNext
-			return "}\<Left>\<CR>\<Up>\<End>\<CR>"
-		endif
-	endif
-
-	return "\<CR>"
-endfunction
-
-function!  hexing#hexing_autoload#HX_keymap_Dkh()
-	let l:lCur = getline('.')
-	let l:lPrev = getline(line('.')-1)
-
-	if l:lCur =~ '=\s*$' || l:lPrev =~ '=\s*$'
-		return "{};\<Left>\<Left>"
-	endif
-
-	let l:arr = ['\<class\>','\<struct\>','\<namespace\>',]
-	for m in l:arr
-		if l:lCur =~ m || l:lPrev =~ m
-			return "{\<CR>};\<Up>\<End>\<CR>"
-		endif
-	endfor
-
-	if l:lCur =~ 'switch\s*(.*)' || l:lPrev =~ 'switch\s*(.*)'
-		return "{\<CR>};\<Up>\<End>\<CR>" . "case :\<CR>break;\<CR>" . "default:\<CR>break;" . "\<Up>\<Up>\<Up>\<Left>"
-	endif
-
-	return hexing#hexing_autoload#HX_paire('{')
-endfunction
-
-function!  hexing#hexing_autoload#HX_keymap_Colon()
-	let l:lCur = getline('.')
-	let l:lNxt = getline(line('.')+1)
-
-	if l:lNxt !~ '\<break\>;'
-		if l:lCur =~ '\<case\>\s\+$'
-			return ":\<CR>break;\<Up>\<End>\<Left>"
-		elseif l:lCur =~ '\<case\>$'
-			return " :\<CR>break;\<Up>\<End>\<Left>"
-		endif
-	endif
-
-	return ':'
-endfunction
+			let l:line = getline('.')
+			let l:len = strlen(l:line)
+			if l:len>0
+				let l:chPrev = l:line[col('.')-2]
+				let l:chNext = l:line[col('.')-1]
+				if l:chPrev==a:l
+					if l:chNext==a:r
+						let l:sCmd = "\<Right>"
+					else
+						let l:sCmd = a:r . "\<left>"
+					endif
+				endif
+			endif
+			return l:sCmd
+		endfunction
