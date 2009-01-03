@@ -80,6 +80,20 @@
 			return ':'
 		endfunction
 
+		function! hexing#c_hx#HX_keymap_Escape() "{{{3
+			let l:lCur = getline('.')
+			if l:lCur =~ '^\s*$'
+				let l:lPre = getline(line('.')-1)
+				if l:lPre =~ '^\s*\(\/\*.*\*\/\s*\)*{\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+					let l:lNxt = getline(line('.')+1)
+					if l:lNxt =~ '^\s*\(\/\*.*\*\/\s*\)*}\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+						return "\<Esc>dd"
+					endif
+				endif
+			endif
+			return "\<Esc>"
+		endfunction
+
 	"commentfunctions {{{2
 		function! hexing#c_hx#HX_comment_c() range "{{{3
 			let l:vm = visualmode()

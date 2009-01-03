@@ -18,3 +18,15 @@ function! hexing#vim_hx#HX_KeyPress_Return()
 
 	return "\<CR>"
 endfunction
+
+function! hexing#vim_hx#HX_KeyPress_Escape()
+	let l:lCur = getline('.')
+	if l:lCur =~ '^\s*$'
+		let l:lNxt = getline(line('.')+1)
+		if l:lNxt =~ '^\s*end.\+$'
+			return "\<Esc>dd"
+		endif
+	endif
+
+	return "\<Esc>"
+endfunction

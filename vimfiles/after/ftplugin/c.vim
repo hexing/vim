@@ -23,6 +23,7 @@ call omni#cpp#complete#Init()
 	"inoremap <buffer> <silent> [ []<Left>
 	inoremap <buffer> <silent> <CR> <C-R>=pumvisible() ? "\<lt>C-Y>\<lt>C-R>=hexing#hexing_autoload#HX_setion_complete()\<lt>CR>" :  "\<lt>C-R>=hexing#c_hx#HX_keymap_Enter()\<lt>CR>"<CR>
 	inoremap <buffer> <silent> <A-u> <C-R>=hexing#hexing_autoload#HX_popup_setion_completion('*')<CR>
+	inoremap <buffer> <silent> <Esc> <C-R>=hexing#c_hx#HX_keymap_Escape()<CR>
 	"inoremap <buffer> <silent> <F7> <Esc>:update <Bar> make! --quiet <Bar> copen<CR>
 	inoremap <buffer> <silent> <F7> <Esc>:call hexing#c_hx#HX_make()<CR>
 	inoremap <buffer> <silent> " <C-R>=hexing#hexing_autoload#HX_paire('"')<CR>
