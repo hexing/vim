@@ -32,9 +32,12 @@
 			let l:lCur = getline('.')
 			let l:lPrev = getline(line('.')-1)
 
-			if l:lCur =~ '=\s*$' || l:lPrev =~ '=\s*$'
-				return "{};\<Left>\<Left>"
-			endif
+			let l:arr = ['=\s*$','\<enum\>']
+			for m in l:arr
+				if l:lCur =~ m || l:lPrev =~ m
+					return "{};\<Left>\<Left>"
+				endif
+			endfor
 
 			let l:arr = ['\<class\>','\<struct\>','\<namespace\>']
 			for m in l:arr
