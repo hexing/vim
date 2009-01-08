@@ -25,6 +25,13 @@
 				endif
 			endif
 
+			if  l:line =~ '#if.*'
+				let l:lNxt = getline(line('.')+1)
+				if l:lNxt !~ '#else.*' && l:lNxt !~ '#endif.*'
+					return "\<CR>#endif\<Up>\<End>\<CR>"
+				endif
+			endif
+
 			return "\<CR>"
 		endfunction
 
