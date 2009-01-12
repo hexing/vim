@@ -94,9 +94,11 @@
 			let l:lCur = getline('.')
 			if l:lCur =~ '^\s*$'
 				let l:lPre = getline(line('.')-1)
-				if l:lPre =~ '^\s*\(\/\*.*\*\/\s*\)*{\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+				"if l:lPre =~ '^\s*\(\/\*.*\*\/\s*\)*{\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+				if l:lPre =~ '{'
 					let l:lNxt = getline(line('.')+1)
-					if l:lNxt =~ '^\s*\(\/\*.*\*\/\s*\)*}\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+					"if l:lNxt =~ '^\s*\(\/\*.*\*\/\s*\)*}\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+					if l:lNxt =~ '}'
 						return "\<Esc>dd"
 					endif
 				endif
