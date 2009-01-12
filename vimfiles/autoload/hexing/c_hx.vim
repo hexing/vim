@@ -53,7 +53,7 @@
 				endif
 			endfor
 
-			let l:arr = ['\<if\>','\<for\>']
+			let l:arr = ['\<if\>','\<for\>','else', 'elseif']
 			for m in l:arr
 				if l:lCur =~ m || l:lPrev =~ m
 					return "{\<CR>}\<Up>\<End>\<CR>"
