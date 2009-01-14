@@ -69,7 +69,7 @@
 			endif
 
 			if l:lCur =~ 'switch\s*(.*)' || l:lPrev =~ 'switch\s*(.*)'
-				return "{\<CR>};\<Up>\<End>\<CR>" . "case :\<CR>break;\<CR>" . "default:\<CR>break;" . "\<Up>\<Up>\<Up>\<Left>"
+				return "{\<CR>};\<Up>\<End>\<CR>" . "case 1:\<CR>break;\<CR>" . "default:\<CR>break;" . "\<Up>\<Up>\<Up>\<Left>\<BS>"
 			endif
 
 			return hexing#hexing_autoload#HX_paire('{')
