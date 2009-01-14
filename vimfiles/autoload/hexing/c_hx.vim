@@ -81,9 +81,9 @@
 
 			if l:lNxt !~ '\<break\>;'
 				if l:lCur =~ '\<case\>\s\+$'
-					return ":\<CR>break;\<Up>\<End>\<Left>"
+					return "1:\<CR>break;\<Up>\<End>\<Left>\<BS>"
 				elseif l:lCur =~ '\<case\>$'
-					return " :\<CR>break;\<Up>\<End>\<Left>"
+					return " 1:\<CR>break;\<Up>\<End>\<Left>\<BS>"
 				endif
 			endif
 
