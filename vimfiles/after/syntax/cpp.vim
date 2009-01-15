@@ -12,6 +12,7 @@ syntax keyword Keyword		tstring TCHAR
 syntax keyword Special		NULL
 syntax keyword cppSpecialKeyword	inline virtual explicit export extern const
 syntax keyword cppSpecialKeyword	typename template namespace
+syntax keyword cppBoolean		TRUE FALSE
 
 syn match cOperator	'[.,:;&!~^|<>?=*+%()\[\]\-]'
 syn match cOperator	'[/*]\@<!/[/*]\@!'
