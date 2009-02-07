@@ -17,7 +17,7 @@
 	set shortmess=oOtTI
 
 	set nowrap whichwrap=b,s	"不自动换行，只有<BS><SPACE>可以在行间回绕
-	set scrolloff=8	scroll=16 sidescroll=9 sidescrolloff=18
+	set scrolloff=0	scroll=0 sidescroll=1 sidescrolloff=0
 	set textwidth=0 shiftwidth=4 tabstop=4 softtabstop=4
 	set smartindent autoindent
 	"set autoread
