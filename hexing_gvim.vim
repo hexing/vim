@@ -45,24 +45,15 @@
 	set	directory=b:/temp/	"将所有.swp发入指定目录
 	set noswapfile	"可在编辑过程中禁止使用交换文件
 
+	"set tags+=E:/develop/tags/tags_core_libs
+	"set tags+=E:/develop/tags/tags_wxWidgets_include
+	"set tags+=E:/develop/tags/tags_wxWidgets_msw 
 
-	"set title titlestring=%<%F%=%l/%L-%P titlelen=70
-	"set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-	"set title titlestring=山横春烟\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-	
-
-	set showtabline=0	"始终显示标签页
-	"set guitablabel=%{tabpagenr()}.%t\ %m	"每个tab上显示编号
 	"set iskeyword+=.	"把.也认为是word的一个合法字符
-
 
 	"scriptnames	"列出所有加载的 plugins, _vimrcs
 	"verbose set history	"显示history的值并指出设置文件的位置
 
-	"set laststatus=2	"总是显示状态栏
-	"if has("statusline")	"自定义状态栏的显示内容
-	"set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P 
-	"endif
 
 "plugin settings {{{1
 	"taglist.vim {{{2
@@ -77,6 +68,10 @@
 
 	"autoclose.vim {{{2
 		let g:autoclose_on = 1
+
+	"hx
+		let g:TagDirectory = 'b:/tags'
+		call hexing#hexing_autoload#HX_LoadTagFiles(g:TagDirectory)
 
 "autocmd {{{1
 		set autochdir "autocmd BufEnter * exec "cd %:p:h"
@@ -98,11 +93,13 @@
 		nnoremap <C-F4> :call hexing#hexing_autoload#HX_close_buffer()<CR>
 		"nnoremap <S-Y> y$
 		nnoremap <silent> <F6> :call  hexing#hexing_autoload#HX_toggle_quickfix_wnd()<CR>
+		nnoremap <silent> <C-F12> :call hexing#hexing_autoload#HX_CreateTagFile()<CR>
+		nnoremap <silent> <A-F12> :call hexing#hexing_autoload#HX_LoadTagFiles('')<CR>
 
 	"insert mode {{{2
 		inoremap <CR> <C-R>=pumvisible() ? "\<lt>C-Y>" : "\<lt>CR>"<CR>
 		inoremap <expr> <Esc> pumvisible() ? "\<C-E>" : "\<Esc>"
-		inoremap <C-CR> <C-O>o
+		imap <C-CR> <End><CR>
 		inoremap <S-CR> <C-O>O
 		inoremap <Home> <C-O>^
 
@@ -130,18 +127,4 @@
 
 "command {{{1
 	command! -range Align : call hexing#hexing_autoload#HX_align_word_column(<line1>, <line2>)
-
-"gui settings {{{1
-	if has("gui_running")
-		if has("win32")
-			set guioptions-=T guioptions-=r guioptions-=l guioptions+=h guioptions-=m guioptions-=R
-			if !&diff
-				set guioptions-=b guioptions-=L
-			else
-				set guioptions+=b guioptions+=L
-			endif
-			autocmd GUIEnter * simalt ~x	"设定 windows 下 gvim 启动时最大化
-			"set guifont=Vera_Sans_YuanTi_Mono:h11.8:w6.7:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
-		endif
-	endif
 "}}}1

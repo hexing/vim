@@ -319,67 +319,154 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	endfunction
 
 "keymap functions {{{2
-		function!  hexing#hexing_autoload#HX_paire(ch) "{{{3
-			let l:sCmd = a:ch
+	function!  hexing#hexing_autoload#HX_paire(ch) "{{{3
+		let l:sCmd = a:ch
 
-			let l:lel = '([{<'
-			let l:ler = ')]}>'
-			let l:count = strlen(l:lel)
+		let l:lel = '([{<'
+		let l:ler = ')]}>'
+		let l:count = strlen(l:lel)
 
-			let l:i = 0
-			while l:i < l:count
-				if a:ch == l:lel[l:i]
-					let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
-					return l:sCmd
-				endif
-
-				let l:i += 1
-			endwhile
-
-			let l:i = 0
-			while l:i < l:count
-				if a:ch == l:ler[l:i]
-					let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
-					return l:sCmd
-				endif
-
-				let l:i += 1
-			endwhile
-
-			let l:lel = "\"'"
-			let l:count = strlen(l:lel)
-
-			let l:i = 0
-			while l:i < l:count
-				if a:ch == l:lel[l:i]
-					let l:sCmd = <SID>HX_close_paire(a:ch, a:ch)
-					return l:sCmd
-				endif
-
-				let l:i += 1
-			endwhile
-
-			return l:sCmd
-		endfunction
-
-		function! <SID>HX_close_paire(l, r) "{{{3
-			let l:sCmd = a:r
-			if a:l==a:r
-				let l:sCmd = a:l . a:r . "\<left>"
+		let l:i = 0
+		while l:i < l:count
+			if a:ch == l:lel[l:i]
+				let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
+				return l:sCmd
 			endif
 
-			let l:line = getline('.')
-			let l:len = strlen(l:line)
-			if l:len>0
-				let l:chPrev = l:line[col('.')-2]
-				let l:chNext = l:line[col('.')-1]
-				if l:chPrev==a:l
-					if l:chNext==a:r
-						let l:sCmd = "\<Right>"
-					else
-						let l:sCmd = a:r . "\<left>"
-					endif
+			let l:i += 1
+		endwhile
+
+		let l:i = 0
+		while l:i < l:count
+			if a:ch == l:ler[l:i]
+				let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
+				return l:sCmd
+			endif
+
+			let l:i += 1
+		endwhile
+
+		let l:lel = "\"'"
+		let l:count = strlen(l:lel)
+
+		let l:i = 0
+		while l:i < l:count
+			if a:ch == l:lel[l:i]
+				let l:sCmd = <SID>HX_close_paire(a:ch, a:ch)
+				return l:sCmd
+			endif
+
+			let l:i += 1
+		endwhile
+
+		return l:sCmd
+	endfunction
+
+	function! <SID>HX_close_paire(l, r) "{{{3
+		let l:sCmd = a:r
+		if a:l==a:r
+			let l:sCmd = a:l . a:r . "\<left>"
+		endif
+
+		let l:line = getline('.')
+		let l:len = strlen(l:line)
+		if l:len>0
+			let l:chPrev = l:line[col('.')-2]
+			let l:chNext = l:line[col('.')-1]
+			if l:chPrev==a:l
+				if l:chNext==a:r
+					let l:sCmd = "\<Right>"
+				else
+					let l:sCmd = a:r . "\<left>"
 				endif
 			endif
-			return l:sCmd
-		endfunction
+		endif
+		return l:sCmd
+	endfunction
+
+	function! <SID>HX_GetCtags() "{{{3
+		if !exists('g:Ctags')
+			let g_Ctags = 'ctags.exe'
+		endif
+	
+		if 0 == strlen(g_Ctags) || !executable(g_Ctags)
+			let g_Ctags = 'ctags.exe'
+		endif
+		return g_Ctags
+	endfunction
+	
+	function! <SID>HX_GetTagFileName() "{{{3 
+		if !exists('g:TagDirectory')
+			return 'tags'
+		endif
+	
+		let tagFile = expand('%:p:h') . '.tag'
+		let tagFile = substitute(tagFile, ':', '%', '')
+		let tagFile = substitute(tagFile, '/', '%', 'g')
+		let tagFile = substitute(tagFile, '\', '%', 'g')
+	
+		if exists('g:TagDirectory')
+			let tagFile = g:TagDirectory . '/' . tagFile
+		endif
+		return tagFile
+	endfunction
+
+	function! hexing#hexing_autoload#HX_CreateTagFile() "{{{3
+		let CtagsCmd = <SID>HX_GetCtags()
+		if !executable(CtagsCmd)
+			call confirm('ctags is invalid!')
+			return
+		endif
+
+		if exists('g:TagDirectory') && !isdirectory(g:TagDirectory)
+			let nChoice = confirm(g:TagDirectory . " does not exist!\nDo you want to create the directory?\n" . g:TagDirectory, "&Ok\n&Cancel", 2)
+			if 2 == nChoice
+				return
+			elseif 1 == nChoice
+				let n = mkdir(g:TagDirectory, 'p')
+				if 0 == n
+					call confirm('Can not mkdir: ' . g:TagDirectory)
+					return
+				endif
+			endif
+		endif
+
+		let tagFile = <SID>HX_GetTagFileName()
+		if tagFile == findfile(tagFile)
+			let nChoice = confirm("The file:\n" . tagFile . "\n already exists!" . "\nDo you want to continue?", "&Yes\n&No", 2)
+			if 2 == nChoice
+				return
+			endif
+		endif
+
+		let s = expand('%:p:h')
+		let s = 'ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f' . tagFile . ' ' . s
+		let s = system(s)
+		if 0 != v:shell_error
+			call confirm(s)
+		else
+			call confirm("Success to build tag file:\n" . tagFile)
+		endif
+	endfunction
+
+	function! hexing#hexing_autoload#HX_LoadTagFiles(sPath) "{{{3
+		let s = a:sPath
+		if 0 == strlen(s)
+			if exists('g:TagDirectory') && isdirectory(g:TagDirectory)
+				let s = g:TagDirectory
+			else
+				let s = expand('%:p:h') . '/*.tag'
+			endif
+			let s = inputdialog('请指定标签文件：', s)
+		endif
+
+		if 0 != strlen(s)
+			if isdirectory(s)
+				let s = s . '/*'
+			endif
+			let s = glob(s)
+			if 0 != strlen(s)
+				let &tags = &tags . ',' . substitute(s, '\n', ',', 'g')
+			endif
+		endif
+	endfunction
