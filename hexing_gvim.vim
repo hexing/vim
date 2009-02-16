@@ -71,7 +71,7 @@
 
 	"hx
 		let g:TagDirectory = 'b:/tags'
-		call hexing#hexing_autoload#HX_LoadTagFiles(g:TagDirectory)
+		call hexing#hexing_autoload#HX_LoadTagFiles(g:TagDirectory . '/*.tag')
 
 "autocmd {{{1
 		set autochdir "autocmd BufEnter * exec "cd %:p:h"

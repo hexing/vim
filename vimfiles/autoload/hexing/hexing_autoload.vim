@@ -445,7 +445,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		if 0 != v:shell_error
 			call confirm(s)
 		else
-			call confirm("Success to build tag file:\n" . tagFile)
+			call confirm("Success to build the tag file:\n" . tagFile)
 		endif
 	endfunction
 
