@@ -64,7 +64,7 @@
 		let g:Tlist_Ctags_Cmd = $VIM . '/vimfiles/bin/ctags.exe'
 
 	"matchparen.vim {{{2
-		let g:loaded_matchparen = 0
+		"let g:loaded_matchparen = 0
 
 	"autoclose.vim {{{2
 		let g:autoclose_on = 1
