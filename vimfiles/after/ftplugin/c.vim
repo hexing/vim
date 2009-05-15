@@ -2,6 +2,13 @@
 call omni#cpp#complete#Init()
 
 
+if !exists("g:ft_C")
+	let g:ft_C = 1
+	set guioptions-=T guioptions-=r guioptions-=l guioptions+=h guioptions-=m guioptions-=R guioptions-=b guioptions-=L
+	colorscheme	hexing_wuye
+endif
+
+
 "setting {{{1
 	"setlocal completefunc=hexing#hexing_autoload#HX_cpp_user_complete
 	setlocal autoread 

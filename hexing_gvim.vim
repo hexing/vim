@@ -9,7 +9,7 @@
 "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f tag01 E:\develop\Core_Libs
 
 "term settings {{{1
-	colorscheme	hexing_wuye "source $VIMRUNTIME/colors/´ºÉ½Ã¼wuye.vim
+	colorscheme	random "source $VIMRUNTIME/colors/´ºÉ½Ã¼wuye.vim
 
 	set number ruler showcmd showmode "splitright
 	set nospell nocompatible
