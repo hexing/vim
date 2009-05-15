@@ -46,7 +46,7 @@
 				endif
 			endfor
 
-			let l:arr = ['\<class\>','\<struct\>','\<namespace\>']
+			let l:arr = ['\<class\>','\<struct\>','\<namespace\>', '\<union\>']
 			for m in l:arr
 				if l:lCur =~ m || l:lPrev =~ m
 					return "{\<CR>};\<Up>\<End>\<CR>"
