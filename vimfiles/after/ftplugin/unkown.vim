@@ -3,6 +3,5 @@
 "if (0 == bufexists(s:buf_name)
 if (1 == bufnr('$'))
 	setlocal guioptions+=m
-	"colorscheme random
 endif
 "unlet s:buf_name
