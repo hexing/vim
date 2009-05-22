@@ -76,6 +76,8 @@
 "autocmd {{{1
 		set autochdir "autocmd BufEnter * exec "cd %:p:h"
 		"auto BufEnter * let &titlestring = hostname() . "/" . expand("%:p")
+		let g:msg = 'ok'
+		auto BufReadPre * call hexing#hexing_autoload#HX_OnOpenFile()
 		
 
 "maps {{{1 

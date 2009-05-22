@@ -470,3 +470,11 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 			endif
 		endif
 	endfunction
+
+	function! hexing#hexing_autoload#HX_OnOpenFile()
+		let l:file_length = getfsize(expand('%'))
+		if (l:file_length > 3072*1024)
+			call confirm('file size > 3M')
+			exec 'bwipeout'
+		endif
+	endfunction
