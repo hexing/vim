@@ -84,8 +84,7 @@
 	"normal mode {{{2
 		nnoremap / :nohlsearch<CR>/
 		nnoremap ? :nohlsearch<CR>?
-		nnoremap <silent> <F5> :nohlsearch<CR>
-		"nnoremap <Esc> :nohlsearch<CR><Esc>
+		nnoremap <Esc> :nohlsearch<CR><Esc>
 		nnoremap Y y$
 		nnoremap <Home> ^
 		"nnoremap <Home> 1_
