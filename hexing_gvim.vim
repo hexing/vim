@@ -92,7 +92,6 @@
 		nnoremap <silent> <kPlus> :set foldlevel-=1<CR>
 		nnoremap <silent> <kMinus> :set foldlevel+=1<CR>
 		nnoremap <C-F4> :call hexing#hexing_autoload#HX_close_buffer()<CR>
-		"nnoremap <S-Y> y$
 		nnoremap <silent> <F6> :call  hexing#hexing_autoload#HX_toggle_quickfix_wnd()<CR>
 		nnoremap <silent> <C-F12> :call hexing#hexing_autoload#HX_CreateTagFile()<CR>
 		nnoremap <silent> <A-F12> :call hexing#hexing_autoload#HX_LoadTagFiles('')<CR>
