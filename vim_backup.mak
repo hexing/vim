@@ -12,9 +12,7 @@ all : vim_home colors tools tutor autoload compiler ftplugin indent syntax
 #all : syntax
 
 .PHONY : vim_home
-FILES_VIM_HOME := \
-	rgb.txt \
-	macmap.vim
+FILES_VIM_HOME := macmap.vim
 FILES_VIM_HOME := $(addprefix $(DIR_VIM_HOME)/, $(FILES_VIM_HOME))
 vim_home : $(FILES_VIM_HOME)
 $(FILES_VIM_HOME) : % :dummy
@@ -112,7 +110,7 @@ STR_FILTER_OUT := \
 	java javascript jsp \
 	lilo \
 	m4 make msql mysql \
-	netrw \
+	netrw nosyntax\
 	rc registry \
 	sql sqlanywhere sqlj syncolor synload syntax \
 	tags tar \
