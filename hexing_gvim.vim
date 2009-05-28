@@ -9,8 +9,6 @@
 "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f tag01 E:\develop\Core_Libs
 
 "term settings {{{1
-	colorscheme	random "source $VIMRUNTIME/colors/春山眉wuye.vim
-
 	set number ruler showcmd showmode "splitright
 	set nospell nocompatible
 	set incsearch hlsearch ignorecase
@@ -54,6 +52,13 @@
 	"scriptnames	"列出所有加载的 plugins, _vimrcs
 	"verbose set history	"显示history的值并指出设置文件的位置
 
+	"set title titlestring=千里暮云平
+	"set title titlestring=%<%F%=%l/%L-%P titlelen=70
+	set title titlestring=千里暮云平\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+	"set title titlestring=%<%F%=%l/%L-%P titlelen=70
+	"set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+	"set title titlestring=山横春烟\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+
 
 "plugin settings {{{1
 	"taglist.vim {{{2
@@ -75,9 +80,10 @@
 
 "autocmd {{{1
 		set autochdir "autocmd BufEnter * exec "cd %:p:h"
-		"auto BufEnter * let &titlestring = hostname() . "/" . expand("%:p")
-		let g:msg = 'ok'
-		auto BufReadPre * call hexing#hexing_autoload#HX_OnOpenFile()
+		"autocmd BufEnter * let &titlestring = hostname() . "/" . expand("%:p")
+		autocmd BufReadPre * call hexing#hexing_autoload#HX_OnOpenFile()
+		let g:colors_name=''
+		autocmd ColorScheme * let &titlestring=&titlestring.'|'.g:colors_name
 		
 
 "maps {{{1 
@@ -128,3 +134,5 @@
 "command {{{1
 	command! -range Align : call hexing#hexing_autoload#HX_align_word_column(<line1>, <line2>)
 "}}}1
+
+	colorscheme	random "source $VIMRUNTIME/colors/春山眉wuye.vim

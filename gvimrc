@@ -1,11 +1,3 @@
-"set title titlestring=千里暮云平
-"set title titlestring=%<%F%=%l/%L-%P titlelen=70
-"set title titlestring=千里暮云平\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-set title titlestring=千里暮云平\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-"set title titlestring=%<%F%=%l/%L-%P titlelen=70
-"set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-"set title titlestring=山横春烟\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
-
 set showtabline=0	"始终显示标签页
 "set guitablabel=%{tabpagenr()}.%t\ %m	"每个tab上显示编号
 
