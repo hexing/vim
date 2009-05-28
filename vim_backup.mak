@@ -5,6 +5,16 @@ DIR_BACKUP := $(DIR_VIM)/gvim_backup
 
 #vpath % $(DIR_VIM_HOME)
 
+define backup_files
+@-mkdir $(DIR_BACKUP)/$(@D) -p
+@mv $(@) $(DIR_BACKUP)/$(@)
+endef
+
+define backup_dir
+@-mkdir $(DIR_BACKUP)/$(<D) -p
+@mv $(<) $(DIR_BACKUP)/$(<)
+endef
+
 
 .PHONY : all dummy
 
@@ -16,23 +26,19 @@ FILES_VIM_HOME := macmap.vim
 FILES_VIM_HOME := $(addprefix $(DIR_VIM_HOME)/, $(FILES_VIM_HOME))
 vim_home : $(FILES_VIM_HOME)
 $(FILES_VIM_HOME) : % :dummy
-	@-mkdir $(DIR_BACKUP)/$(@D) -p
-	@mv $(@) $(DIR_BACKUP)/$(@)
+	$(backup_files)
 
 .PHONY : colors
 colors : $(DIR_VIM_HOME)/colors
-	@-mkdir $(DIR_BACKUP)/$(<D) -p
-	@mv $(<) $(DIR_BACKUP)/$(<)
+	$(backup_dir)
 
 .PHONY : tools
 tools : $(DIR_VIM_HOME)/tools
-	@-mkdir $(DIR_BACKUP)/$(<D) -p
-	@mv $(<) $(DIR_BACKUP)/$(<)
+	$(backup_dir)
 
 .PHONY : tutor
 tutor : $(DIR_VIM_HOME)/tutor
-	@-mkdir $(DIR_BACKUP)/$(<D) -p
-	@mv $(<) $(DIR_BACKUP)/$(<)
+	$(backup_dir)
 
 .PHONY : autoload
 FILES_AUTOLOAD := \
@@ -42,8 +48,7 @@ FILES_AUTOLOAD := $(addprefix $(DIR_VIM_HOME)/autoload/, $(FILES_AUTOLOAD))
 FILES_AUTOLOAD := $(addsuffix .vim, $(FILES_AUTOLOAD))
 autoload : $(FILES_AUTOLOAD)
 $(FILES_AUTOLOAD) : % : dummy
-	@mkdir $(DIR_BACKUP)/$(@D) -p
-	@mv $(@) $(DIR_BACKUP)/$(@)
+	$(backup_files)
 
 .PHONY : compiler
 STR_FILTER_OUT := \
@@ -55,8 +60,7 @@ FILES_COMPILER := $(wildcard $(DIR_VIM_HOME)/compiler/*.vim)
 FILES_COMPILER := $(filter-out $(STR_FILTER_OUT), $(FILES_COMPILER))
 compiler : $(FILES_COMPILER)
 $(FILES_COMPILER) : % : dummy
-	@mkdir $(DIR_BACKUP)/$(@D) -p
-	@mv $(@) $(DIR_BACKUP)/$(@)
+	$(backup_files)
 
 .PHONY : ftplugin
 STR_FILTER_OUT := \
@@ -76,8 +80,7 @@ FILES_FTPLUGIN := $(wildcard $(DIR_VIM_HOME)/ftplugin/*.vim)
 FILES_FTPLUGIN := $(filter-out $(STR_FILTER_OUT), $(FILES_FTPLUGIN))
 ftplugin : $(FILES_FTPLUGIN)
 $(FILES_FTPLUGIN) : % : dummy
-	@mkdir $(DIR_BACKUP)/$(@D) -p
-	@mv $(@) $(DIR_BACKUP)/$(@)
+	$(backup_files)
 
 .PHONY : indent
 STR_FILTER_OUT := \
@@ -95,8 +98,7 @@ FILES_INDENT := $(wildcard $(DIR_VIM_HOME)/indent/*.vim)
 FILES_INDENT := $(filter-out $(STR_FILTER_OUT), $(FILES_INDENT))
 indent : $(FILES_INDENT)
 $(FILES_INDENT) : % : dummy
-	@mkdir $(DIR_BACKUP)/$(@D) -p
-	@mv $(@) $(DIR_BACKUP)/$(@)
+	$(backup_files)
 
 .PHONY : syntax
 STR_FILTER_OUT := \
@@ -123,5 +125,4 @@ FILES_SYNTAX := $(wildcard $(DIR_VIM_HOME)/syntax/*.vim)
 FILES_SYNTAX := $(filter-out $(STR_FILTER_OUT), $(FILES_SYNTAX))
 syntax : $(FILES_SYNTAX)
 $(FILES_SYNTAX) : % : dummy
-	@mkdir $(DIR_BACKUP)/$(@D) -p
-	@mv $(@) $(DIR_BACKUP)/$(@)
+	$(backup_files)
