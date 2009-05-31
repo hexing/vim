@@ -90,7 +90,7 @@
 	"normal mode {{{2
 		nnoremap / :nohlsearch<CR>/
 		nnoremap ? :nohlsearch<CR>?
-		nnoremap <Esc> :nohlsearch<CR><Esc>
+		nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
 		nnoremap Y y$
 		nnoremap <Home> ^
 		"nnoremap <Home> 1_
