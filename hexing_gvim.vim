@@ -84,6 +84,8 @@
 		autocmd BufReadPre * call hexing#hexing_autoload#HX_OnOpenFile()
 		let g:colors_name=''
 		autocmd ColorScheme * let &titlestring=&titlestring.'|'.g:colors_name
+		au BufRead,BufNewFile *.h++	set filetype=cpp
+		au BufRead,BufNewFile *.c++	set filetype=cpp
 		
 
 "maps {{{1 
