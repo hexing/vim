@@ -32,7 +32,9 @@
 	set maxfuncdepth=97 more
 	set selection=exclusive "inclusive
 	set bufhidden=
-	set grepprg=grep\ -nrHubE\ -e 
+	set grepprg=grep\ -nHubE
+	"grep -nHubE -d skip -e
+	"find -type f -name "*.vim" -maxdepth 1
 	set isfname+=32 "让gf也能查找包含space的文件名
 
 	syntax enable
