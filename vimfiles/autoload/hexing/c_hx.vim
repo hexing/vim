@@ -1,8 +1,8 @@
 "functions {{{1
 	"additional functions {{{2
-		function!  hexing#c_hx#HX_make() "{{{3
+		function!  hexing#c_hx#HX_make(str) "{{{3
 			exec "silent! normal! :update\<CR>"
-			exec "silent! normal! :make! --quiet\<CR>"
+			exec "silent! normal! :make! " .a:str. " --quiet\<CR>"
 			if (0 == v:shell_error)
 				exec "silent! normal! :cw\<CR>"
 			else
