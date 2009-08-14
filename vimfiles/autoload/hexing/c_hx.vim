@@ -10,6 +10,22 @@
 			endif
 		endfunction
 
+		function! hexing#c_hx#HX_header_file() "{{{3
+			let l:s=expand('%')
+			let l:s=substitute(l:s,'\.','_','g')
+			let l:s=toupper(l:s)
+			let l:s='__'.l:s.'__'
+			call append(0,'#ifndef '.l:s)
+			call append(1,'#define '.l:s)
+			call append(2,'')
+			call append(3,'')
+			call append(4,'')
+			call append(5,'')
+			call append(line('$'),'#endif //'.l:s)
+			call cursor(5,1)
+		endfunction
+
+
 	"key map functions {{{2
 		function!  hexing#c_hx#HX_keymap_Enter() "{{{3
 			let l:line = getline('.')
@@ -65,7 +81,8 @@
 			endif
 
 			if l:lCur =~ '\<do\>' || l:lPrev =~ '\<do\>'
-				return "{\<CR>}while();\<Up>\<End>\<CR>"
+				"return "{\<CR>} while ();\<Up>\<End>\<CR>"
+				return "{\<CR>} while ();\<Left>\<Left>"
 			endif
 
 			if l:lCur =~ 'switch\s*(.*)' || l:lPrev =~ 'switch\s*(.*)'

@@ -16,7 +16,7 @@ endif
 	setlocal complete=. complete+=t
 	setlocal foldmethod=syntax foldlevel=9
 	setlocal makeprg=make
-	setlocal formatoptions-=r formatoptions-=o
+	setlocal formatoptions-=cro
 
 	"setlocal guifont=Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b
 	"setlocal guifont=Vera\ Sans\ YuanTi\ Mono:h11.8:w6.3:b
@@ -45,6 +45,7 @@ endif
 	nnoremap <buffer> <silent> <F3> :AT<CR>
 	nnoremap <buffer> <silent> <F8> :TlistToggle<CR>
 	nnoremap <buffer> <silent> <A-t> :tnext<CR>
+	nnoremap <buffer> <silent> <A-h> :call hexing#c_hx#HX_header_file()<CR>
 
 	vnoremap <buffer> <silent> <kDivide><kMultiply> :call hexing#c_hx#HX_comment_c()<CR>
 
