@@ -8,14 +8,14 @@ DIR_BACKUP := $(DIR_VIM)/gvim_backup
 define backup_files
 @-mkdir $(DIR_BACKUP)/$(@D) -p
 @mv $(@) $(DIR_BACKUP)/$(@)
-@echo $(@)
 endef
+#@echo $(@)
 
 define backup_dir
 @-mkdir $(DIR_BACKUP)/$(<D) -p
 @mv $(<) $(DIR_BACKUP)/$(<)
-@echo $(<)
 endef
+#@echo $(<)
 
 
 .PHONY : all dummy
