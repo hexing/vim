@@ -11,39 +11,39 @@ function!  hexing#c_hx#HX_make(str) "{{{3
 endfunction
 
 function! hexing#c_hx#HX_header_file() "{{{3
-	let l:s=expand('%')
-	let l:s=substitute(l:s,'\.','_','g')
-	let l:s=toupper(l:s)
-	let l:s='__'.l:s.'__'
-	call append(0,'#ifndef '.l:s)
-	call append(1,'#define '.l:s)
+	let s=expand('%')
+	let s=substitute(s,'\.','_','g')
+	let s=toupper(s)
+	let s='__'.s.'__'
+	call append(0,'#ifndef '.s)
+	call append(1,'#define '.s)
 	call append(2,'')
 	call append(3,'')
 	call append(4,'')
 	call append(5,'')
-	call append(line('$'),'#endif //'.l:s)
+	call append(line('$'),'#endif //'.s)
 	call cursor(5,1)
 endfunction
 
 
 "key map functions {{{2
 function!  hexing#c_hx#HX_keymap_Enter() "{{{3
-	let l:line = getline('.')
-	let l:len = strlen(l:line)
-	let l:chPrev = l:line[col('.')-2]
-	let l:chNext = l:line[col('.')-1]
+	let line = getline('.')
+	let len = strlen(line)
+	let chPrev = line[col('.')-2]
+	let chNext = line[col('.')-1]
 
-	if '{'==l:chPrev
-		if '}'==l:chNext
+	if '{'==chPrev
+		if '}'==chNext
 			return "\<CR>\<Up>\<End>\<CR>"
-		elseif ''==l:chNext
+		elseif ''==chNext
 			return "}\<Left>\<CR>\<Up>\<End>\<CR>"
 		endif
 	endif
 
-	if  l:line =~ '#if.*'
-		let l:lNxt = getline(line('.')+1)
-		if l:lNxt !~ '#else.*' && l:lNxt !~ '#endif.*'
+	if  line =~ '#if.*'
+		let lNxt = getline(line('.')+1)
+		if lNxt !~ '#else.*' && lNxt !~ '#endif.*'
 			return "\<CR>#endif\<Up>\<End>\<CR>"
 		endif
 	endif
@@ -52,40 +52,40 @@ function!  hexing#c_hx#HX_keymap_Enter() "{{{3
 endfunction
 
 function!  hexing#c_hx#HX_keymap_Dkh() "{{{3
-	let l:lCur = getline('.')
-	let l:lPrev = getline(line('.')-1)
+	let lCur = getline('.')
+	let lPrev = getline(line('.')-1)
 
-	let l:arr = ['=\s*$','\<enum\>']
-	for m in l:arr
-		if l:lCur =~ m || l:lPrev =~ m
+	let arr = ['=\s*$','\<enum\>']
+	for m in arr
+		if lCur =~ m || lPrev =~ m
 			return "{};\<Left>\<Left>"
 		endif
 	endfor
 
-	let l:arr = ['\<class\>','\<struct\>','\<namespace\>', '\<union\>']
-	for m in l:arr
-		if l:lCur =~ m || l:lPrev =~ m
+	let arr = ['\<class\>','\<struct\>','\<namespace\>', '\<union\>']
+	for m in arr
+		if lCur =~ m || lPrev =~ m
 			return "{\<CR>};\<Up>\<End>\<CR>"
 		endif
 	endfor
 
-	let l:arr = ['\<if\>','\<for\>','else', 'elseif']
-	for m in l:arr
-		if l:lCur =~ m || l:lPrev =~ m
+	let arr = ['\<if\>','\<for\>','else', 'elseif']
+	for m in arr
+		if lCur =~ m || lPrev =~ m
 			return "{\<CR>}\<Up>\<End>\<CR>"
 		endif
 	endfor
 
-	if l:lCur =~ '\<while\>' || l:lPrev =~ '\<while\>'
+	if lCur =~ '\<while\>' || lPrev =~ '\<while\>'
 		return "{\<CR>break;\<CR>}\<Up>\<Up>\<End>\<CR>"
 	endif
 
-	if l:lCur =~ '\<do\>' || l:lPrev =~ '\<do\>'
+	if lCur =~ '\<do\>' || lPrev =~ '\<do\>'
 		"return "{\<CR>} while ();\<Up>\<End>\<CR>"
 		return "{\<CR>} while ();\<Left>\<Left>"
 	endif
 
-	if l:lCur =~ 'switch\s*(.*)' || l:lPrev =~ 'switch\s*(.*)'
+	if lCur =~ 'switch\s*(.*)' || lPrev =~ 'switch\s*(.*)'
 		return "{\<CR>};\<Up>\<End>\<CR>" . "case 1:\<CR>break;\<CR>" . "default:\<CR>break;" . "\<Up>\<Up>\<Up>\<Left>\<BS>"
 	endif
 
@@ -93,13 +93,13 @@ function!  hexing#c_hx#HX_keymap_Dkh() "{{{3
 endfunction
 
 function!  hexing#c_hx#HX_keymap_Colon() "{{{3
-	let l:lCur = getline('.')
-	let l:lNxt = getline(line('.')+1)
+	let lCur = getline('.')
+	let lNxt = getline(line('.')+1)
 
-	if l:lNxt !~ '\<break\>;'
-		if l:lCur =~ '\<case\>\s\+$'
+	if lNxt !~ '\<break\>;'
+		if lCur =~ '\<case\>\s\+$'
 			return "1:\<CR>break;\<Up>\<End>\<Left>\<BS>"
-		elseif l:lCur =~ '\<case\>$'
+		elseif lCur =~ '\<case\>$'
 			return " 1:\<CR>break;\<Up>\<End>\<Left>\<BS>"
 		endif
 	endif
@@ -108,14 +108,14 @@ function!  hexing#c_hx#HX_keymap_Colon() "{{{3
 endfunction
 
 function! hexing#c_hx#HX_keymap_Escape() "{{{3
-	let l:lCur = getline('.')
-	if l:lCur =~ '^\s*$'
-		let l:lPre = getline(line('.')-1)
-		"if l:lPre =~ '^\s*\(\/\*.*\*\/\s*\)*{\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
-		if l:lPre =~ '{'
-			let l:lNxt = getline(line('.')+1)
-			"if l:lNxt =~ '^\s*\(\/\*.*\*\/\s*\)*}\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
-			if l:lNxt =~ '}'
+	let lCur = getline('.')
+	if lCur =~ '^\s*$'
+		let lPre = getline(line('.')-1)
+		"if lPre =~ '^\s*\(\/\*.*\*\/\s*\)*{\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+		if lPre =~ '{'
+			let lNxt = getline(line('.')+1)
+			"if lNxt =~ '^\s*\(\/\*.*\*\/\s*\)*}\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
+			if lNxt =~ '}'
 				return "\<Esc>dd"
 			endif
 		endif
@@ -125,98 +125,51 @@ endfunction
 
 "commentfunctions {{{2
 function! hexing#c_hx#HX_comment_c() range "{{{3
-	let l:vm = visualmode()
+	let vm = visualmode()
 
-	if char2nr('v') == char2nr(l:vm)
+	if char2nr('v') == char2nr(vm)
 		if a:firstline == a:lastline
-			let l:s = getline(a:firstline)
-			let l:s = strpart(l:s, 0, col("'>")-1) . '*/' . strpart(l:s, col("'>")-1)
-			let l:s = strpart(l:s, 0, col("'<")-1) . '/*' . strpart(l:s, col("'<")-1) 
-			call setline(a:firstline, l:s)
+			let s = getline(a:firstline)
+			let s = strpart(s, 0, col("'>")-1) . '*/' . strpart(s, col("'>")-1)
+			let s = strpart(s, 0, col("'<")-1) . '/*' . strpart(s, col("'<")-1) 
+			call setline(a:firstline, s)
 		else
-			let l:ss = getline(a:firstline)
-			let l:ss = strpart(l:ss, 0, col("'<")-1) . '/*' . strpart(l:ss, col("'<")-1)
-			call setline(a:firstline, l:ss)
-			let l:st = getline(a:lastline)
-			let l:st = strpart(l:st, 0, col("'>")-1) . '*/' . strpart(l:st, col("'>")-1)
-			call setline(a:lastline, l:st)
+			let ss = getline(a:firstline)
+			let ss = strpart(ss, 0, col("'<")-1) . '/*' . strpart(ss, col("'<")-1)
+			call setline(a:firstline, ss)
+			let st = getline(a:lastline)
+			let st = strpart(st, 0, col("'>")-1) . '*/' . strpart(st, col("'>")-1)
+			call setline(a:lastline, st)
 		endif
-	elseif char2nr('V') == char2nr(l:vm)
+	elseif char2nr('V') == char2nr(vm)
 		if a:firstline == a:lastline
-			let l:ln = getline(a:firstline)
-			let l:len = strlen(l:ln)
-			let l:i = 0
-			while l:i < l:len
-				if l:ln[l:i] !~ '\s'
+			let ln = getline(a:firstline)
+			let len = strlen(ln)
+			let i = 0
+			while i < len
+				if ln[i] !~ '\s'
 					break
 				endif
-				let l:i += 1
+				let i += 1
 			endwhile
-			let l:ln = strpart(l:ln, 0, l:i) . '/*' . strpart(l:ln, l:i, l:len-l:i)
-			let l:ln = l:ln . '*/'
-			call setline(a:firstline, l:ln)
+			let ln = strpart(ln, 0, i) . '/*' . strpart(ln, i, len-i)
+			let ln = ln . '*/'
+			call setline(a:firstline, ln)
 		else
-			let l:lb = getline(a:firstline)
-			let l:len = strlen(l:lb)
-			let l:i = 0
-			while l:i < l:len
-				if l:lb[l:i] !~ '\s'
+			let lb = getline(a:firstline)
+			let len = strlen(lb)
+			let i = 0
+			while i < len
+				if lb[i] !~ '\s'
 					break
 				endif
-				let l:i += 1
+				let i += 1
 			endwhile
-			let l:lb = strpart(l:lb, 0, l:i) . '/*' . strpart(l:lb, l:i, l:len-l:i)
+			let lb = strpart(lb, 0, i) . '/*' . strpart(lb, i, len-i)
 
-			let l:line = getline(a:lastline) . '*/'
-			call setline(a:firstline, l:lb)
-			call setline(a:lastline, l:line)
+			let line = getline(a:lastline) . '*/'
+			call setline(a:firstline, lb)
+			call setline(a:lastline, line)
 		endif
 	endif
 endfunction
-
-"{{{2
-"function! hexing#c_hx#HX_switch_h_cpp() range "{{{3
-"	let l:sDir=expand('%:p:h')
-"	let l:sFile=expand('%:r')
-"	let l:sExt=expand('%:e')
-"
-"	let l:cf=['cpp','cxx','c++','c','cc','C']
-"	let l:hf=['hpp','hxx','h++','h','hh','H']
-"
-"	let l:len=len(l:cf)
-"	let l:i=0
-"	while (l:i<l:len)
-"		if (l:sExt==l:cf[l:i])
-"			let l:sExt=l:hf[l:i]
-"		elseif (l:sExt==l:hf[l:i])
-"			let l:sExt=l:cf[l:i]
-"		else
-"			let l:i+=1
-"			continue
-"		endif
-"
-"		let l:s=l:sFile.'.'.l:sExt
-"		let l:s=findfile(l:s,l:sDir)
-"		if (0==strlen(l:s))
-"			if ('hpp'==l:sExt)
-"				let l:s=l:sFile.'.h'
-"			elseif ('c'==l:sExt)
-"				let l:s=l:sFile.'.cpp'
-"			endif
-"			let l:s=findfile(l:s,l:sDir)
-"		endif
-"
-"		let l:s=findfile(l:s,l:sDir)
-"		if (0<strlen(s))
-"			let l:s=l:sDir.'\'.l:s
-"			exec 'silent! :tabedit '.l:s
-"			return
-"		endif
-"		break
-"	endwhile
-"
-"		let l:s=browse('','Ë­¼ÒÐÂÑà×Ä´ºÄà',l:sDir,'')
-"		if (0<strlen(s))
-"			exec 'silent! :tabedit '.l:s
-"		endif
-"endfunction

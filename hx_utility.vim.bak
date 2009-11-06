@@ -1,0 +1,87 @@
+"function! hexing#c_hx#HX_switch_h_cpp() range "{{{3
+"	let sDir=expand('%:p:h')
+"	let sFile=expand('%:r')
+"	let sExt=expand('%:e')
+"
+"	let cf=['cpp','cxx','c++','c','cc','C']
+"	let hf=['hpp','hxx','h++','h','hh','H']
+"
+"	let len=len(cf)
+"	let i=0
+"	while (i<len)
+"		if (sExt==cf[i])
+"			let sExt=hf[i]
+"		elseif (sExt==hf[i])
+"			let sExt=cf[i]
+"		else
+"			let i+=1
+"			continue
+"		endif
+"
+"		let s=sFile.'.'.sExt
+"		let s=findfile(s,sDir)
+"		if (0==strlen(s))
+"			if ('hpp'==sExt)
+"				let s=sFile.'.h'
+"			elseif ('c'==sExt)
+"				let s=sFile.'.cpp'
+"			endif
+"			let s=findfile(s,sDir)
+"		endif
+"
+"		let s=findfile(s,sDir)
+"		if (0<strlen(s))
+"			let s=sDir.'\'.s
+"			exec 'silent! :tabedit '.s
+"			return
+"		endif
+"		break
+"	endwhile
+"
+"		let s=browse('','Ë­¼ÒÐÂÑà×Ä´ºÄà',sDir,'')
+"		if (0<strlen(s))
+"			exec 'silent! :tabedit '.s
+"		endif
+"endfunction
+
+		"function! hexing#hexing_autoload#HX_cpp_user_complete(findstart, base) "{{{3
+		"	if a:findstart
+		"		let begin = <SID>HX_getCurWordBeg()
+		"		let count = col('.') - begin - 1
+		"		if count > 0
+		"			let str = strpart(getline('.'), begin, count)
+		"		else
+		"			let str = ''
+		"		endif
+		"		let pos = begin
+		"		
+		"		if '' != str
+		"			let i = 0
+		"			while i < count
+		"				let s = strpart(str, i, count - i)
+		"				for m in s:HX_cpp_dictionary
+		"					if m['abbr'] =~ '^' . s
+		"						let pos -= i
+		"						break
+		"					endif
+		"				endfor
+
+		"				let i += 1
+		"			endwhile
+		"		endif
+
+		"		return pos
+		"	else
+		"		" Ñ°ÕÒÆ¥Åä "a:base" µÄ
+		"		for m in s:HX_cpp_dictionary 
+		"			if m['abbr'] =~ '^' . a:base
+		"				call complete_add(m['abbr'])
+		"			endif
+		"			if complete_check()
+		"				break
+		"			endif
+		"		endfor
+		"		let s:IsInHxCmp = 1
+		"		return []
+		"	endif
+		"endfunction

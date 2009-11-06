@@ -1,29 +1,29 @@
 function! hexing#vim_hx#HX_KeyPress_Return()
-	let l:arr1 = ['^\s*\<function\>','^\s*\<while\>','^\s*\<for\>','^\s*\<if\>']
-	let l:arr2 = ['endfunction','endwhile','endfor','endif']
+	let arr1 = ['^\s*\<function\>','^\s*\<while\>','^\s*\<for\>','^\s*\<if\>']
+	let arr2 = ['endfunction','endwhile','endfor','endif']
 
-	let l:lCur = getline('.')
-	let l:lNxt = getline(line('.')+1)
+	let lCur = getline('.')
+	let lNxt = getline(line('.')+1)
 
-	let l:i = 0
-	for m in l:arr1
-		if l:lCur =~ m
-			"let l:nt = '^\s*\<' . l:arr2[l:i] . '\>'
-			"if l:lNxt !~ l:nt
-				return "\<CR>" . l:arr2[l:i] . "\<Up>\<End>\<CR>"
+	let i = 0
+	for m in arr1
+		if lCur =~ m
+			"let nt = '^\s*\<' . arr2[i] . '\>'
+			"if lNxt !~ nt
+				return "\<CR>" . arr2[i] . "\<Up>\<End>\<CR>"
 			"endif
 		endif
-		let l:i += 1
+		let i += 1
 	endfor
 
 	return "\<CR>"
 endfunction
 
 function! hexing#vim_hx#HX_KeyPress_Escape()
-	let l:lCur = getline('.')
-	if l:lCur =~ '^\s*$'
-		let l:lNxt = getline(line('.')+1)
-		if l:lNxt =~ '^\s*end.\+$'
+	let lCur = getline('.')
+	if lCur =~ '^\s*$'
+		let lNxt = getline(line('.')+1)
+		if lNxt =~ '^\s*end.\+$'
 			return "\<Esc>dd"
 		endif
 	endif

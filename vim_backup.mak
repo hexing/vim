@@ -20,7 +20,7 @@ endef
 
 .PHONY : all dummy
 
-all : vim_home colors tools tutor autoload compiler ftplugin indent syntax
+all : vim_home colors keymap lang spell tools tutor autoload compiler ftplugin indent macros plugin syntax
 #all : syntax
 
 .PHONY : vim_home
@@ -34,6 +34,18 @@ $(FILES_VIM_HOME) : % :dummy
 colors : $(DIR_VIM_HOME)/colors
 	$(backup_dir)
 
+.PHONY : keymap
+keymap : $(DIR_VIM_HOME)/keymap
+	$(backup_dir)
+
+.PHONY : lang
+lang : $(DIR_VIM_HOME)/lang
+	$(backup_dir)
+
+.PHONY : spell
+spell : $(DIR_VIM_HOME)/spell
+	$(backup_dir)
+
 .PHONY : tools
 tools : $(DIR_VIM_HOME)/tools
 	$(backup_dir)
@@ -45,7 +57,8 @@ tutor : $(DIR_VIM_HOME)/tutor
 .PHONY : autoload
 FILES_AUTOLOAD := \
 	ada adacomplete \
-	decada
+	decada \
+	gnat
 FILES_AUTOLOAD := $(addprefix $(DIR_VIM_HOME)/autoload/, $(FILES_AUTOLOAD))
 FILES_AUTOLOAD := $(addsuffix .vim, $(FILES_AUTOLOAD))
 autoload : $(FILES_AUTOLOAD)
@@ -100,6 +113,28 @@ FILES_INDENT := $(wildcard $(DIR_VIM_HOME)/indent/*.vim)
 FILES_INDENT := $(filter-out $(STR_FILTER_OUT), $(FILES_INDENT))
 indent : $(FILES_INDENT)
 $(FILES_INDENT) : % : dummy
+	$(backup_files)
+
+.PHONY : macros
+STR_FILTER_OUT := \
+	editexisting.vim \
+	matchit.txt matchit.vim \
+	README.txt
+STR_FILTER_OUT := $(addprefix %/, $(STR_FILTER_OUT))
+STR_FILTER_OUT := $(addsuffix .vim, $(STR_FILTER_OUT))
+FILES_MACROS := $(wildcard $(DIR_VIM_HOME)/macros/*)
+FILES_MACROS := $(filter-out $(STR_FILTER_OUT), $(FILES_MACROS))
+macros : $(FILES_MACROS)
+$(FILES_MACROS) : % : dummy
+	$(backup_files)
+
+.PHONY : plugin
+FILES_PLUGIN := \
+	spellfile
+FILES_PLUGIN := $(addprefix $(DIR_VIM_HOME)/plugin/, $(FILES_PLUGIN))
+FILES_PLUGIN := $(addsuffix .vim, $(FILES_PLUGIN))
+plugin : $(FILES_PLUGIN)
+$(FILES_PLUGIN) : % : dummy
 	$(backup_files)
 
 .PHONY : syntax

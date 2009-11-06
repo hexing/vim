@@ -32,120 +32,78 @@ let s:HX_cpp_dictionary = [
 "functions {{{1
 "complete functions {{{2
 		function! s:HX_getCurWordBeg() "{{{3
-            let l:line = getline('.')
-            let l:start = col('.') - 1
-            while l:start > 0 && l:line[l:start - 1] !~ '\s'
-              let l:start -= 1
+            let line = getline('.')
+            let start = col('.') - 1
+            while start > 0 && line[start - 1] !~ '\s'
+              let start -= 1
             endwhile
-            return l:start
+            return start
 		endfunction
 
-		"function! hexing#hexing_autoload#HX_cpp_user_complete(findstart, base) "{{{3
-		"	if a:findstart
-		"		let l:begin = <SID>HX_getCurWordBeg()
-		"		let l:count = col('.') - l:begin - 1
-		"		if l:count > 0
-		"			let l:str = strpart(getline('.'), l:begin, l:count)
-		"		else
-		"			let l:str = ''
-		"		endif
-		"		let l:pos = l:begin
-		"		
-		"		if '' != l:str
-		"			let l:i = 0
-		"			while l:i < l:count
-		"				let l:s = strpart(l:str, l:i, l:count - l:i)
-		"				for m in s:HX_cpp_dictionary
-		"					if m['abbr'] =~ '^' . l:s
-		"						let l:pos -= l:i
-		"						break
-		"					endif
-		"				endfor
-
-		"				let l:i += 1
-		"			endwhile
-		"		endif
-
-		"		return l:pos
-		"	else
-		"		" Ñ°ÕÒÆ¥Åä "a:base" µÄ
-		"		for m in s:HX_cpp_dictionary 
-		"			if m['abbr'] =~ '^' . a:base
-		"				call complete_add(m['abbr'])
-		"			endif
-		"			if complete_check()
-		"				break
-		"			endif
-		"		endfor
-		"		let s:IsInHxCmp = 1
-		"		return []
-		"	endif
-		"endfunction
-
 		function! s:HX_get_complete_array(base) "{{{3
-			let l:arr = []
+			let arr = []
 			for m in s:HX_cpp_dictionary
 				if m['abbr'] =~ '^' . a:base
-					call add(l:arr, m['abbr'])
+					call add(arr, m['abbr'])
 				endif
 			endfor
-			return l:arr
+			return arr
 		endfunction
 
 		function! hexing#hexing_autoload#HX_popup_setion_completion(base_str) "{{{3
-			let l:base = a:base_str
-			if '*' == l:base
-				let l:line = getline('.')
-				let l:begin = s:HX_getCurWordBeg()
-				let l:count = col('.') - l:begin - 1
-				if l:count > 0
-					let l:base = strpart(l:line, l:begin, l:count)
+			let base = a:base_str
+			if '*' == base
+				let line = getline('.')
+				let begin = s:HX_getCurWordBeg()
+				let count = col('.') - begin - 1
+				if count > 0
+					let base = strpart(line, begin, count)
 				else
-					let l:base = ''
+					let base = ''
 				endif
 			endif
 
-			let l:arr = s:HX_get_complete_array(l:base)
-			let l:pos = col('.')
+			let arr = s:HX_get_complete_array(base)
+			let pos = col('.')
 
-			if empty(l:arr)
-				let l:i = strlen(l:base) - 1
-				let l:s = ''
-				while l:i > -1
-					let l:s = l:base[i] . l:s
-					let l:arr = s:HX_get_complete_array(l:s)
+			if empty(arr)
+				let i = strlen(base) - 1
+				let s = ''
+				while i > -1
+					let s = base[i] . s
+					let arr = s:HX_get_complete_array(s)
 
-					if !empty(l:arr)
-						let l:pos -= strlen(l:base) - l:i
+					if !empty(arr)
+						let pos -= strlen(base) - i
 						break
 					endif
-					let l:i -= 1
+					let i -= 1
 				endwhile
 				
-				if empty(l:arr)
+				if empty(arr)
 					for m in s:HX_cpp_dictionary
-						call add(l:arr, m['abbr'])
+						call add(arr, m['abbr'])
 					endfor
 				endif
 			else
-				let l:pos -= strlen(l:base)
+				let pos -= strlen(base)
 			endif
 
-			call complete(l:pos, l:arr)
+			call complete(pos, arr)
 			let s:IsInHxCmp = 1
 			return ''
 		endfunction
 
 		function! s:HX_do_setion_complete(base, word, motion) "{{{3
-			let l:line = getline('.')
-			let l:action = 'silent! normal! '
-			if col('.') > strlen(l:line)
-				let l:action = l:action . (strlen(a:base) - 1) . 'XxA'
+			let line = getline('.')
+			let action = 'silent! normal! '
+			if col('.') > strlen(line)
+				let action = action . (strlen(a:base) - 1) . 'XxA'
 			else
-				let l:action = l:action . strlen(a:base) . 'Xi'
+				let action = action . strlen(a:base) . 'Xi'
 			endif
-			let l:action = l:action . a:word
-			exe l:action
+			let action = action . a:word
+			exe action
 
 			if strlen(a:motion) > 0
 				exe 'silent! normal! ' . a:motion
@@ -158,21 +116,21 @@ let s:HX_cpp_dictionary = [
 			endif
 			let s:IsInHxCmp = 0
 
-			let l:line = getline('.')
-			let l:begin = s:HX_getCurWordBeg()
-			let l:count = col('.') - l:begin - 1
-			let l:base = ''
+			let line = getline('.')
+			let begin = s:HX_getCurWordBeg()
+			let count = col('.') - begin - 1
+			let base = ''
 
-			if l:count > 0
-				let l:base = strpart(l:line, l:begin, l:count)
-				let l:len = strlen(l:base)
+			if count > 0
+				let base = strpart(line, begin, count)
+				let len = strlen(base)
 
-				if l:len > 0
+				if len > 0
 					for m in s:HX_cpp_dictionary
-						if m['abbr'] == l:base
-							call s:HX_do_setion_complete(l:base, m['word'], m['menu'])
+						if m['abbr'] == base
+							call s:HX_do_setion_complete(base, m['word'], m['menu'])
 							return ''
-						elseif l:base =~ m['abbr'] . '$'
+						elseif base =~ m['abbr'] . '$'
 							call s:HX_do_setion_complete(m['abbr'], m['word'], m['menu'])
 							return ''
 						endif
@@ -186,98 +144,98 @@ let s:HX_cpp_dictionary = [
 "Align functions {{{2
 function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		"befor check {{{4
-		let l:b = a:ln_beg
-		let l:e = a:ln_end
-		if l:b < 1
-			let l:b = 1
+		let b = a:ln_beg
+		let e = a:ln_end
+		if b < 1
+			let b = 1
 		endif
-		if l:e > line('$')
-			let l:e = line('$')
+		if e > line('$')
+			let e = line('$')
 		endif
-		if l:b >= l:e
+		if b >= e
 			return
 		endif
 		"}}}4
 
 		"before {{{4
-		let l:ve_save = &virtualedit
+		let ve_save = &virtualedit
 		setlocal virtualedit=
-		exe 'silent! normal! :' . l:b . ',' . l:e . "left\<CR>"
+		exe 'silent! normal! :' . b . ',' . e . "left\<CR>"
 		"}}}4
 
 		"get lines array {{{4
-		let l:ln_num = []
-		let l:i = l:b
-		while l:i <= l:e
-			call add(l:ln_num, i)
-			let l:i += 1
+		let ln_num = []
+		let i = b
+		while i <= e
+			call add(ln_num, i)
+			let i += 1
 		endwhile
 		"}}}4
 
-		let l:i = 1
+		let i = 1
 		while 1
-			let l:arr_ln = []
-			let l:arr_vcol = []
+			let arr_ln = []
+			let arr_vcol = []
 
-			for l:it in l:ln_num "get lines and columns {{{4
-				let l:pos = 0
-				let l:k = 0
-				while l:k < l:i
-					let l:pos = matchend(getline(l:it), '\s\+\S', l:pos)
-					if l:pos < 1
+			for it in ln_num "get lines and columns {{{4
+				let pos = 0
+				let k = 0
+				while k < i
+					let pos = matchend(getline(it), '\s\+\S', pos)
+					if pos < 1
 						break
 					endif
-					let l:k += 1
+					let k += 1
 				endwhile
 
-				if l:pos > 1
-					call add(l:arr_ln, l:it) 
+				if pos > 1
+					call add(arr_ln, it) 
 
-					call cursor(l:it, l:pos)
-					"exe 'silent! normal! ' . (l:pos - 1) . 'l'
-					call add(l:arr_vcol, virtcol('.'))
+					call cursor(it, pos)
+					"exe 'silent! normal! ' . (pos - 1) . 'l'
+					call add(arr_vcol, virtcol('.'))
 				endif
 			endfor "}}}4
 
-			let l:len = len(l:arr_ln)
-			if 0 == l:len
+			let len = len(arr_ln)
+			if 0 == len
 				break
 			endif
-			let l:ln_num = l:arr_ln
-			let l:max_vcol = max(l:arr_vcol)
+			let ln_num = arr_ln
+			let max_vcol = max(arr_vcol)
 
-			let l:k = 0
+			let k = 0
 			"set virtualedit=all
-			while l:k < l:len "align {{{4
-				let l:ln = get(l:arr_ln, l:k)
-				let l:vcol = get(l:arr_vcol, l:k)
-				if l:vcol < l:max_vcol
-					call cursor(l:ln, 1)
-					"exe 'silent! normal! ' . l:vcol . '|"zd$' . l:max_vcol . '|' . '"zP'
-					exe 'silent! normal! ' . l:vcol . '|"zd$'
-					while virtcol('.') < l:max_vcol
+			while k < len "align {{{4
+				let ln = get(arr_ln, k)
+				let vcol = get(arr_vcol, k)
+				if vcol < max_vcol
+					call cursor(ln, 1)
+					"exe 'silent! normal! ' . vcol . '|"zd$' . max_vcol . '|' . '"zP'
+					exe 'silent! normal! ' . vcol . '|"zd$'
+					while virtcol('.') < max_vcol
 						exe "silent! normal! a\<Tab>"
 					endwhile
 					setlocal virtualedit=all
-					if virtcol('.') > l:max_vcol
+					if virtcol('.') > max_vcol
 						exe 'silent! normal! a' . "\<BS>"
-						exe 'silent! normal! ' . l:max_vcol . '|'
+						exe 'silent! normal! ' . max_vcol . '|'
 					endif
 					exe 'silent! normal! "zP'
 					setlocal virtualedit=
 				endif
 
-				let l:k += 1
+				let k += 1
 			endwhile "}}}4
 			"set virtualedit=
 
-			let l:i += 1
+			let i += 1
 		endwhile
 
 		"after {{{4
-		let &virtualedit = l:ve_save
-		call cursor(l:b, 1)
-		exe 'silent! normal! =' . (l:e - l:b) . 'j'
+		let &virtualedit = ve_save
+		call cursor(b, 1)
+		exe 'silent! normal! =' . (e - b) . 'j'
 		"}}}4
 	endfunction
 
@@ -289,108 +247,108 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 
 "additional functions {{{2
 	function! hexing#hexing_autoload#HX_toggle_quickfix_wnd() "{{{3 
-		let l:buf_count = bufnr('$')
-		let l:i = 1
-		while l:i <= l:buf_count
-			if 'quickfix' == getbufvar(bufname(l:i), '&buftype')
+		let buf_count = bufnr('$')
+		let i = 1
+		while i <= buf_count
+			if 'quickfix' == getbufvar(bufname(i), '&buftype')
 				break
 			endif
-			let l:i += 1
+			let i += 1
 		endwhile
-		let l:cmd = 'silent! :'
-		if l:i <= l:buf_count
-			let l:cmd = l:cmd . 'cclose'
+		let cmd = 'silent! :'
+		if i <= buf_count
+			let cmd = cmd . 'cclose'
 		else
-			let l:cmd = l:cmd . 'copen'
+			let cmd = cmd . 'copen'
 		endif
-		exe l:cmd
+		exe cmd
 	endfunction
 
 	function!  hexing#hexing_autoload#HX_close_buffer() "{{{3
-		let l:cmd = 'normal :'
-		let l:buf_name = bufname('#')
-		if bufexists(l:buf_name)
-			let l:cmd = l:cmd . 'bwipeout'
+		let cmd = 'normal :'
+		let buf_name = bufname('#')
+		if bufexists(buf_name)
+			let cmd = cmd . 'bwipeout'
 		else
-			let l:cmd = l:cmd . 'confirm quit'
+			let cmd = cmd . 'confirm quit'
 		endif
-		let l:cmd = l:cmd . "\<CR>"
-		exe l:cmd
+		let cmd = cmd . "\<CR>"
+		exe cmd
 	endfunction
 
 "keymap functions {{{2
 	function!  hexing#hexing_autoload#HX_paire(ch) "{{{3
-		let l:sCmd = a:ch
+		let sCmd = a:ch
 
-		let l:lel = '({<['
-		let l:ler = ')}>]'
-		let l:count = strlen(l:lel)
+		let lel = '({<['
+		let ler = ')}>]'
+		let count = strlen(lel)
 
-		let l:i = 0
-		while l:i < l:count
-			if a:ch == l:lel[l:i]
+		let i = 0
+		while i < count
+			if a:ch == lel[i]
 				if ('['==a:ch)
 					if (0 < searchpair('\[','','\]','nm',0))
 						return a:ch
 					endif
-				elseif (0 < searchpair(a:ch,'',l:ler[l:i],'nm',0))
+				elseif (0 < searchpair(a:ch,'',ler[i],'nm',0))
 					return a:ch
 				endif
-				let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
-				return l:sCmd
+				let sCmd = a:ch . ler[i] . "\<left>"
+				return sCmd
 			endif
 
-			let l:i += 1
+			let i += 1
 		endwhile
 
-		let l:i = 0
-		while l:i < l:count
-			if a:ch == l:ler[l:i]
-				let l:sCmd = <SID>HX_close_paire(l:lel[l:i], a:ch)
-				return l:sCmd
+		let i = 0
+		while i < count
+			if a:ch == ler[i]
+				let sCmd = <SID>HX_close_paire(lel[i], a:ch)
+				return sCmd
 			endif
 
-			let l:i += 1
+			let i += 1
 		endwhile
 
-		let l:lel = "\"'"
-		let l:count = strlen(l:lel)
+		let lel = "\"'"
+		let count = strlen(lel)
 
-		let l:i = 0
-		while l:i < l:count
-			if a:ch == l:lel[l:i]
-				let l:sCmd = <SID>HX_close_paire(a:ch, a:ch)
-				return l:sCmd
+		let i = 0
+		while i < count
+			if a:ch == lel[i]
+				let sCmd = <SID>HX_close_paire(a:ch, a:ch)
+				return sCmd
 			endif
 
-			let l:i += 1
+			let i += 1
 		endwhile
 
-		return l:sCmd
+		return sCmd
 	endfunction
 
 	function! <SID>HX_close_paire(l, r) "{{{3
-		let l:sCmd = a:r
+		let sCmd = a:r
 		if a:l==a:r
-			let l:sCmd = a:l . a:r . "\<left>"
+			let sCmd = a:l . a:r . "\<left>"
 		endif
 
-		let l:line = getline('.')
-		let l:len = strlen(l:line)
-		if l:len>0
-			let l:chPrev = l:line[col('.')-2]
-			let l:chNext = l:line[col('.')-1]
-			if l:chPrev==a:l
-				if l:chNext==a:r
-					let l:sCmd = "\<Right>"
+		let line = getline('.')
+		let len = strlen(line)
+		if len>0
+			let chPrev = line[col('.')-2]
+			let chNext = line[col('.')-1]
+			if chPrev==a:l
+				if chNext==a:r
+					let sCmd = "\<Right>"
 				else
-					let l:sCmd = a:r . "\<left>"
+					let sCmd = a:r . "\<left>"
 				endif
 			"elseif (0 < searchpair(a:l,'',a:r,'nmb',0))
-			"		let l:sCmd = a:r
+			"		let sCmd = a:r
 			endif
 		endif
-		return l:sCmd
+		return sCmd
 	endfunction
 
 	function! <SID>HX_GetCtags() "{{{3
@@ -481,16 +439,16 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	endfunction
 
 	function! hexing#hexing_autoload#HX_OnOpenFile()
-		let l:file_length = getfsize(expand('%'))
-		if (l:file_length > 3072*1024)
+		let file_length = getfsize(expand('%'))
+		if (file_length > 3072*1024)
 			call confirm('file size > 3M')
 			exec 'bwipeout'
 		endif
 	endfunction
 
 	function! hexing#hexing_autoload#HX_switch_showtabline()
-		let l:i = &showtabline
-		if (0==l:i)
+		let i = &showtabline
+		if (0==i)
 			exec 'silent! :set showtabline=2'
 		else
 			exec 'silent! :set showtabline=0'
@@ -498,11 +456,11 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	endfunction
 
 	"function! hexing#hexing_autoload#HX_debug_test()
-	"	let l:sFile = expand('<cfile>:p')
-	"	let l:i = bufloaded(l:sFile)
-	"	if (0==l:i)
-	"		exec 'silent! :tabedit ' . l:sFile
+	"	let sFile = expand('<cfile>:p')
+	"	let i = bufloaded(sFile)
+	"	if (0==i)
+	"		exec 'silent! :tabedit ' . sFile
 	"	else
-	"		exec 'silent! :buffer ' . l:i
+	"		exec 'silent! :buffer ' . i
 	"	endif
 	"endfunction
