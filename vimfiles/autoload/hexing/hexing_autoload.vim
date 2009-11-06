@@ -322,13 +322,20 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	function!  hexing#hexing_autoload#HX_paire(ch) "{{{3
 		let l:sCmd = a:ch
 
-		let l:lel = '([{<'
-		let l:ler = ')]}>'
+		let l:lel = '({<['
+		let l:ler = ')}>]'
 		let l:count = strlen(l:lel)
 
 		let l:i = 0
 		while l:i < l:count
 			if a:ch == l:lel[l:i]
+				if ('['==a:ch)
+					if (0 < searchpair('\[','','\]','nm',0))
+						return a:ch
+					endif
+				elseif (0 < searchpair(a:ch,'',l:ler[l:i],'nm',0))
+					return a:ch
+				endif
 				let l:sCmd = a:ch . l:ler[l:i] . "\<left>"
 				return l:sCmd
 			endif
@@ -379,6 +386,8 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 				else
 					let l:sCmd = a:r . "\<left>"
 				endif
+			"elseif (0 < searchpair(a:l,'',a:r,'nmb',0))
+			"		let l:sCmd = a:r
 			endif
 		endif
 		return l:sCmd
@@ -478,3 +487,22 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 			exec 'bwipeout'
 		endif
 	endfunction
+
+	function! hexing#hexing_autoload#HX_switch_showtabline()
+		let l:i = &showtabline
+		if (0==l:i)
+			exec 'silent! :set showtabline=2'
+		else
+			exec 'silent! :set showtabline=0'
+		endif
+	endfunction
+
+	"function! hexing#hexing_autoload#HX_debug_test()
+	"	let l:sFile = expand('<cfile>:p')
+	"	let l:i = bufloaded(l:sFile)
+	"	if (0==l:i)
+	"		exec 'silent! :tabedit ' . l:sFile
+	"	else
+	"		exec 'silent! :buffer ' . l:i
+	"	endif
+	"endfunction

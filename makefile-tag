@@ -1,0 +1,4 @@
+all :
+	ctags -R --c-kinds=+p --c++-kinds=+p --fields=+iaS --extra=+q d:\develop\GUI_Player\Core_PlayAudio  d:\develop\GUI_Player\Core_PlayAudio_include
+	rm -f *.out
+	cscope -b -q 
