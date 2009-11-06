@@ -42,8 +42,8 @@ endif
 	"nnoremap <buffer> <silent> <F7> :update <Bar> make! --quiet <Bar> copen<CR>
 	nnoremap <buffer> <silent> <F7> <Esc>:call hexing#c_hx#HX_make('')<CR>
 	nnoremap <buffer> <silent> <F5> <Esc>:call hexing#c_hx#HX_make('run=1')<CR>
-	"nnoremap <buffer> <silent> <F3> :AT<CR>
-	nnoremap <buffer> <silent> <F3> :call hexing#c_hx#HX_switch_h_cpp()<CR>
+	nnoremap <buffer> <silent> <F3> :AT<CR>
+	"nnoremap <buffer> <silent> <F3> :call hexing#c_hx#HX_switch_h_cpp()<CR>
 	nnoremap <buffer> <silent> <F8> :TlistToggle<CR>
 	nnoremap <buffer> <silent> <A-t> :tnext<CR>
 	nnoremap <buffer> <silent> <A-h> :call hexing#c_hx#HX_header_file()<CR>
