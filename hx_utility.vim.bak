@@ -132,3 +132,25 @@
 "			exec 'silent! :tabedit '.l:s
 "		endif
 "endfunction
+
+"function! <SID>BackSlashPath(sPath)
+"	if has("win16") || has("win32") || has("win64") || has("win95")
+"		return substitute(a:sPath, '\/', '\\', 'g')
+"	endif
+"	return substitute(a:sPath, '\\', '\/', 'g')
+"endfunction
+
+"function! <SID>FindFileInPath(sFileName)
+"	return findfile(a:sFileName)
+"	let pathLst = split(&path, ',')
+"	for it in pathLst
+"		"let s = <SID>BackSlashPath(it)
+"		call confirm(it)
+"		let s = findfile(a:sFileName, it)
+"		if (!empty(s))
+"			call confirm(s)
+"			return s
+"		endif
+"	endfor
+"	return ''
+"endfunction

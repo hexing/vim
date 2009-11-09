@@ -183,26 +183,6 @@ function! <SID>EqualFilePaths(path1, path2)
   endif
 endfunction
 
-function! <SID>BackSlashPath(sPath)
-	if has("win16") || has("win32") || has("win64") || has("win95")
-		return substitute(a:sPath, "\/", "\\", "g")
-	endif
-	return substitute(a:sPath, "\\", "\/", "g")
-endfunction
-
-function! <SID>FindFileInPath(sFileName)
-	let cBS = '/'
-	if has("win16") || has("win32") || has("win64") || has("win95")
-		let cBS = '\'
-	endif
-
-	let pathLst = split(&path, ',')
-	for it in pathLst
-		let s = <SID>BackSlashPath(it)
-		call confirm(s)
-	endfor
-endfunction
-
 function! <SID>GetBufNr4Path(sPath)
 	let i = bufnr("$")
 	while (i > 0)
@@ -230,8 +210,10 @@ function! hexing#c_hx#HX_gf()
 	let sFile = expand('<cfile>:p')
 	let bufNr = <SID>GetBufNr4Path(sFile)
 	if (-1 == bufNr)
-		let sFile = <SID>FindFileInPath(fnamemodify(sFile, ':t'))
-		return
+		let sFile = findfile(fnamemodify(sFile, ':t'))
+		if (empty(sFile))
+			return
+		endif
 	endif
 
 	let tabNr = <SID>GetTabNr4BufNr(bufNr)
