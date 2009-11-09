@@ -212,6 +212,10 @@ function! hexing#c_hx#HX_gf()
 	if (-1 == bufNr)
 		let sFile = findfile(fnamemodify(sFile, ':t'))
 		if (empty(sFile))
+			let sFile = browse('', 'Ç§ÀïÄºÔÆÆ½', '.', '')
+			if (!empty(sFile))
+				exec 'silent! tabedit '.sFile
+			endif
 			return
 		endif
 	endif
