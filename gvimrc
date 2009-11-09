@@ -17,6 +17,7 @@ if has("gui_running")
 			set guioptions+=b guioptions+=L
 		endif
 		autocmd GUIEnter * simalt ~x	"设定 windows 下 gvim 启动时最大化
-		set guifont=Vera_Sans_YuanTi_Mono:h13.8:w7.6:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
+		"set guifont=Vera_Sans_YuanTi_Mono:h13.8:w7.6:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
+		set guifont=新宋体:h17:w9
 	endif
 endif

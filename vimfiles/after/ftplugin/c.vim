@@ -47,7 +47,8 @@ endif
 	nnoremap <buffer> <silent> <F8> :TlistToggle<CR>
 	nnoremap <buffer> <silent> <A-t> :tnext<CR>
 	nnoremap <buffer> <silent> <A-h> :call hexing#c_hx#HX_header_file()<CR>
-	nnoremap <buffer> <silent> gf :tabedit <cfile><CR>
+	"nnoremap <buffer> <silent> gf :tabedit <cfile><CR>
+	nnoremap <buffer> <silent> gf :call hexing#c_hx#HX_gf()<CR>
 
 	vnoremap <buffer> <silent> <kDivide><kMultiply> :call hexing#c_hx#HX_comment_c()<CR>
 
