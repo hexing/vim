@@ -183,6 +183,26 @@ function! <SID>EqualFilePaths(path1, path2)
   endif
 endfunction
 
+function! <SID>BackSlashPath(sPath)
+	if has("win16") || has("win32") || has("win64") || has("win95")
+		return substitute(a:sPath, "\/", "\\", "g")
+	endif
+	return substitute(a:sPath, "\\", "\/", "g")
+endfunction
+
+function! <SID>FindFileInPath(sFileName)
+	let cBS = '/'
+	if has("win16") || has("win32") || has("win64") || has("win95")
+		let cBS = '\'
+	endif
+
+	let pathLst = split(&path, ',')
+	for it in pathLst
+		let s = <SID>BackSlashPath(it)
+		call confirm(s)
+	endfor
+endfunction
+
 function! <SID>GetBufNr4Path(sPath)
 	let i = bufnr("$")
 	while (i > 0)
@@ -209,6 +229,10 @@ endfunction
 function! hexing#c_hx#HX_gf()
 	let sFile = expand('<cfile>:p')
 	let bufNr = <SID>GetBufNr4Path(sFile)
+	if (-1 == bufNr)
+		let sFile = <SID>FindFileInPath(fnamemodify(sFile, ':t'))
+		return
+	endif
 
 	let tabNr = <SID>GetTabNr4BufNr(bufNr)
 	if (tabNr > 0)
@@ -223,50 +247,3 @@ function! hexing#c_hx#HX_gf()
 
 	exec 'silent! tabedit '.sFile
 endfunction
-
-"{{{2
-"function! hexing#c_hx#HX_switch_h_cpp() range "{{{3
-"	let l:sDir=expand('%:p:h')
-"	let l:sFile=expand('%:r')
-"	let l:sExt=expand('%:e')
-"
-"	let l:cf=['cpp','cxx','c++','c','cc','C']
-"	let l:hf=['hpp','hxx','h++','h','hh','H']
-"
-"	let l:len=len(l:cf)
-"	let l:i=0
-"	while (l:i<l:len)
-"		if (l:sExt==l:cf[l:i])
-"			let l:sExt=l:hf[l:i]
-"		elseif (l:sExt==l:hf[l:i])
-"			let l:sExt=l:cf[l:i]
-"		else
-"			let l:i+=1
-"			continue
-"		endif
-"
-"		let l:s=l:sFile.'.'.l:sExt
-"		let l:s=findfile(l:s,l:sDir)
-"		if (0==strlen(l:s))
-"			if ('hpp'==l:sExt)
-"				let l:s=l:sFile.'.h'
-"			elseif ('c'==l:sExt)
-"				let l:s=l:sFile.'.cpp'
-"			endif
-"			let l:s=findfile(l:s,l:sDir)
-"		endif
-"
-"		let l:s=findfile(l:s,l:sDir)
-"		if (0<strlen(s))
-"			let l:s=l:sDir.'\'.l:s
-"			exec 'silent! :tabedit '.l:s
-"			return
-"		endif
-"		break
-"	endwhile
-"
-"		let l:s=browse('','Ë­¼ÒÐÂÑà×Ä´ºÄà',l:sDir,'')
-"		if (0<strlen(s))
-"			exec 'silent! :tabedit '.l:s
-"		endif
-"endfunction

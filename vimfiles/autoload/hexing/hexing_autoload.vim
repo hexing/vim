@@ -55,9 +55,9 @@ let s:HX_cpp_dictionary = [
 			if '*' == base
 				let line = getline('.')
 				let begin = s:HX_getCurWordBeg()
-				let count = col('.') - begin - 1
-				if count > 0
-					let base = strpart(line, begin, count)
+				let cnt = col('.') - begin - 1
+				if cnt > 0
+					let base = strpart(line, begin, cnt)
 				else
 					let base = ''
 				endif
@@ -118,11 +118,11 @@ let s:HX_cpp_dictionary = [
 
 			let line = getline('.')
 			let begin = s:HX_getCurWordBeg()
-			let count = col('.') - begin - 1
+			let cnt = col('.') - begin - 1
 			let base = ''
 
-			if count > 0
-				let base = strpart(line, begin, count)
+			if cnt > 0
+				let base = strpart(line, begin, cnt)
 				let len = strlen(base)
 
 				if len > 0
@@ -282,10 +282,10 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 
 		let lel = '({<['
 		let ler = ')}>]'
-		let count = strlen(lel)
+		let cnt = strlen(lel)
 
 		let i = 0
-		while i < count
+		while i < cnt
 			if a:ch == lel[i]
 				if ('['==a:ch)
 					if (0 < searchpair('\[','','\]','nm',0))
@@ -302,7 +302,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		endwhile
 
 		let i = 0
-		while i < count
+		while i < cnt
 			if a:ch == ler[i]
 				let sCmd = <SID>HX_close_paire(lel[i], a:ch)
 				return sCmd
@@ -312,10 +312,10 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		endwhile
 
 		let lel = "\"'"
-		let count = strlen(lel)
+		let cnt = strlen(lel)
 
 		let i = 0
-		while i < count
+		while i < cnt
 			if a:ch == lel[i]
 				let sCmd = <SID>HX_close_paire(a:ch, a:ch)
 				return sCmd
