@@ -287,13 +287,13 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		let i = 0
 		while i < cnt
 			if a:ch == lel[i]
-				if ('['==a:ch)
-					if (0 < searchpair('\[','','\]','nm',0))
-						return a:ch
-					endif
-				elseif (0 < searchpair(a:ch,'',ler[i],'nm',0))
-					return a:ch
-				endif
+				"if ('['==a:ch)
+				"	if (0 < searchpair('\[','','\]','nm',0))
+				"		return a:ch
+				"	endif
+				"elseif (0 < searchpair(a:ch,'',ler[i],'nm',0))
+				"	return a:ch
+				"endif
 				let sCmd = a:ch . ler[i] . "\<left>"
 				return sCmd
 			endif
