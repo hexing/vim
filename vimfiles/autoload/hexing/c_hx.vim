@@ -116,7 +116,7 @@ function! hexing#c_hx#HX_keymap_Escape() "{{{3
 			let l:lNxt = getline(line('.')+1)
 			"if l:lNxt =~ '^\s*\(\/\*.*\*\/\s*\)*}\s*\(\/\*.*\*\/\s*\)*\(\/\/.*\)*$'
 			if l:lNxt =~ '}'
-				return "\<Esc>dd"
+				return "\<Esc>\"_dd"
 			endif
 		endif
 	endif
