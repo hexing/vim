@@ -2,10 +2,32 @@
 call omni#cpp#complete#Init()
 
 
+"functions {{{1
+	function! <SID>CppFoldText()
+		return (v:foldstart - v:foldend) . ' lines foldlevel: ' . v:foldlevel . ' ' . getline(v:foldstart)
+	endfunction
+
+	function! <SID>CColourScheme()
+		let lst = ['hexing_wuye', 'wuye']
+		for i in lst
+			if i == g:colors_name
+				return
+			endif
+		endfor
+
+		if 1 == localtime()%3
+			let k = len(g:colors_name)%len(lst)
+			call confirm(lst[k])
+			exec 'silent! normal :colorscheme ' . lst[k] . "\<CR>"
+		else
+			colorscheme	hexing_wuye
+		endif
+	endfunction
+
 if !exists("g:ft_C")
 	let g:ft_C = 1
 	set guioptions-=T guioptions-=r guioptions-=l guioptions+=h guioptions-=m guioptions-=R guioptions-=b guioptions-=L
-	colorscheme	hexing_wuye
+	call <SID>CColourScheme()
 endif
 
 
@@ -21,10 +43,7 @@ endif
 	"setlocal guifont=Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b
 	"setlocal guifont=Vera\ Sans\ YuanTi\ Mono:h11.8:w6.3:b
 
-	setlocal foldtext=CppFoldText()
-	function! CppFoldText()
-		return (v:foldstart - v:foldend) . ' lines foldlevel: ' . v:foldlevel . ' ' . getline(v:foldstart)
-	endfunction
+	setlocal foldtext=<SID>CppFoldText()
 "map {{{1
 	"inoremap <buffer> <silent> { {}<Left><CR><Up><End><CR>
 	"inoremap <buffer> <silent> [ []<Left>
