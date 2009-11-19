@@ -8,7 +8,7 @@ call omni#cpp#complete#Init()
 	endfunction
 
 	function! <SID>CColourScheme()
-		let lst = ['hexing_wuye', 'wuye', 'django', 'desert']
+		let lst = ['hexing_wuye', 'wuye', 'django', 'desert', 'camo']
 		for i in lst
 			if i == g:colors_name
 				return
