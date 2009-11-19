@@ -8,7 +8,7 @@ call omni#cpp#complete#Init()
 	endfunction
 
 	function! <SID>CColourScheme()
-		let lst = ['hexing_wuye', 'wuye']
+		let lst = ['hexing_wuye', 'wuye', 'django']
 		for i in lst
 			if i == g:colors_name
 				return
@@ -17,7 +17,6 @@ call omni#cpp#complete#Init()
 
 		if 1 == localtime()%3
 			let k = len(g:colors_name)%len(lst)
-			call confirm(lst[k])
 			exec 'silent! normal :colorscheme ' . lst[k] . "\<CR>"
 		else
 			colorscheme	hexing_wuye
