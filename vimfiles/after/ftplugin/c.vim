@@ -8,7 +8,7 @@ call omni#cpp#complete#Init()
 	endfunction
 
 	function! <SID>CColourScheme()
-		let lst = ['hexing_wuye', 'wuye', 'django']
+		let lst = ['hexing_wuye', 'wuye', 'django', 'desert']
 		for i in lst
 			if i == g:colors_name
 				return
@@ -26,7 +26,9 @@ call omni#cpp#complete#Init()
 if !exists("g:ft_C")
 	let g:ft_C = 1
 	set guioptions-=T guioptions-=r guioptions-=l guioptions+=h guioptions-=m guioptions-=R guioptions-=b guioptions-=L
-	call <SID>CColourScheme()
+	if (!&diff)
+		call <SID>CColourScheme()
+	endif
 endif
 
 
