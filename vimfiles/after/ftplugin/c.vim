@@ -54,7 +54,7 @@ endif
 	"inoremap <buffer> <silent> <F7> <Esc>:update <Bar> make! --quiet <Bar> copen<CR>
 	inoremap <buffer> <silent> <F7> <Esc>:call hexing#c_hx#HX_make('')<CR>
 	inoremap <buffer> <silent> <F5> <Esc>:call hexing#c_hx#HX_make('run=1')<CR>
-	inoremap <buffer> <silent> " <C-R>=hexing#hexing_autoload#HX_paire('"')<CR>
+	inoremap <buffer> <silent> " <C-R>=hexing#hexing_autoload#HX_pair('"')<CR>
 	inoremap <buffer> <silent> { <C-R>=hexing#c_hx#HX_keymap_Dkh()<CR>
 	inoremap <buffer> <silent> : <C-R>=hexing#c_hx#HX_keymap_Colon()<CR>
 

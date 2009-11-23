@@ -123,12 +123,12 @@
 		inoremap <A-k> <C-X><C-K>
 		inoremap <A-v> <C-X><C-V>
 
-		inoremap [ <C-R>=hexing#hexing_autoload#HX_paire('[')<CR>
-		inoremap ] <C-R>=hexing#hexing_autoload#HX_paire(']')<CR>
-		inoremap ( <C-R>=hexing#hexing_autoload#HX_paire('(')<CR>
-		inoremap ) <C-R>=hexing#hexing_autoload#HX_paire(')')<CR>
-		inoremap } <C-R>=hexing#hexing_autoload#HX_paire('}')<CR>
-		inoremap ' <C-R>=hexing#hexing_autoload#HX_paire("'")<CR>
+		inoremap [ <C-R>=hexing#hexing_autoload#HX_pair('[')<CR>
+		inoremap ] <C-R>=hexing#hexing_autoload#HX_pair(']')<CR>
+		inoremap ( <C-R>=hexing#hexing_autoload#HX_pair('(')<CR>
+		inoremap ) <C-R>=hexing#hexing_autoload#HX_pair(')')<CR>
+		inoremap } <C-R>=hexing#hexing_autoload#HX_pair('}')<CR>
+		inoremap ' <C-R>=hexing#hexing_autoload#HX_pair("'")<CR>
 
 	"visual mode {{{2
 		vnoremap <silent> <A-F8> :call hexing#hexing_autoload#HX_align_lines()<CR>

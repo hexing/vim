@@ -89,7 +89,7 @@ function!  hexing#c_hx#HX_keymap_Dkh() "{{{3
 		return "{\<CR>};\<Up>\<End>\<CR>" . "case 1:\<CR>break;\<CR>" . "default:\<CR>break;" . "\<Up>\<Up>\<Up>\<Left>\<BS>"
 	endif
 
-	return hexing#hexing_autoload#HX_paire('{')
+	return hexing#hexing_autoload#HX_pair('{')
 endfunction
 
 function!  hexing#c_hx#HX_keymap_Colon() "{{{3

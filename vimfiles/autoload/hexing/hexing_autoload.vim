@@ -277,7 +277,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	endfunction
 
 "keymap functions {{{2
-	function!  hexing#hexing_autoload#HX_paire(ch) "{{{3
+	function!  hexing#hexing_autoload#HX_pair(ch) "{{{3
 		let sCmd = a:ch
 
 		let lel = '({<['
@@ -294,7 +294,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 				"elseif (0 < searchpair(a:ch,'',ler[i],'nm',0))
 				"	return a:ch
 				"endif
-				let sCmd = a:ch . ler[i] . "\<left>"
+				let sCmd = a:ch . ler[i] . "\<Left>"
 				return sCmd
 			endif
 
@@ -304,7 +304,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		let i = 0
 		while i < cnt
 			if a:ch == ler[i]
-				let sCmd = <SID>HX_close_paire(lel[i], a:ch)
+				let sCmd = <SID>HX_close_pair(lel[i], a:ch)
 				return sCmd
 			endif
 
@@ -317,7 +317,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		let i = 0
 		while i < cnt
 			if a:ch == lel[i]
-				let sCmd = <SID>HX_close_paire(a:ch, a:ch)
+				let sCmd = <SID>HX_close_pair(a:ch, a:ch)
 				return sCmd
 			endif
 
@@ -327,7 +327,7 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		return sCmd
 	endfunction
 
-	function! <SID>HX_close_paire(l, r) "{{{3
+	function! <SID>HX_close_pair(l, r) "{{{3
 		let sCmd = a:r
 		if a:l==a:r
 			let sCmd = a:l . a:r . "\<left>"
