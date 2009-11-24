@@ -8,7 +8,7 @@ call omni#cpp#complete#Init()
 	endfunction
 
 	function! <SID>CColourScheme()
-		let lst = ['hexing_wuye', 'wuye', 'django', 'desert', 'camo']
+		let lst = ['hexing_wuye', 'wuye', 'django', 'desert', 'camo', 'slate', 'doriath', 'darkspectrum']
 		for i in lst
 			if i == g:colors_name
 				return
@@ -46,22 +46,10 @@ endif
 
 	setlocal foldtext=<SID>CppFoldText()
 "map {{{1
-	"inoremap <buffer> <silent> { {}<Left><CR><Up><End><CR>
-	"inoremap <buffer> <silent> [ []<Left>
-	inoremap <buffer> <silent> <CR> <C-R>=pumvisible() ? "\<lt>C-Y>\<lt>C-R>=hexing#hexing_autoload#HX_setion_complete()\<lt>CR>" :  "\<lt>C-R>=hexing#c_hx#HX_keymap_Enter()\<lt>CR>"<CR>
-	inoremap <buffer> <silent> <A-u> <C-R>=hexing#hexing_autoload#HX_popup_setion_completion('*')<CR>
-	inoremap <buffer> <silent> <Esc> <C-R>=hexing#c_hx#HX_keymap_Escape()<CR>
-	"inoremap <buffer> <silent> <F7> <Esc>:update <Bar> make! --quiet <Bar> copen<CR>
-	inoremap <buffer> <silent> <F7> <Esc>:call hexing#c_hx#HX_make('')<CR>
-	inoremap <buffer> <silent> <F5> <Esc>:call hexing#c_hx#HX_make('run=1')<CR>
-	inoremap <buffer> <silent> " <C-R>=hexing#hexing_autoload#HX_pair('"')<CR>
-	inoremap <buffer> <silent> { <C-R>=hexing#c_hx#HX_keymap_Dkh()<CR>
-	inoremap <buffer> <silent> : <C-R>=hexing#c_hx#HX_keymap_Colon()<CR>
-
-
 	"nnoremap <buffer> <silent> <F7> :update <Bar> make! --quiet <Bar> copen<CR>
-	nnoremap <buffer> <silent> <F7> <Esc>:call hexing#c_hx#HX_make('')<CR>
-	nnoremap <buffer> <silent> <F5> <Esc>:call hexing#c_hx#HX_make('run=1')<CR>
+	nnoremap <buffer> <silent> <F7> :call hexing#c_hx#HX_make('')<CR>
+	nnoremap <buffer> <silent> <F5> :call hexing#c_hx#HX_make('run=1')<CR>
+	nnoremap <buffer> <silent> <C-F7> :call hexing#c_hx#HX_syntax_check()<CR>
 	nnoremap <buffer> <silent> <F3> :AT<CR>
 	"nnoremap <buffer> <silent> <F3> :call hexing#c_hx#HX_switch_h_cpp()<CR>
 	nnoremap <buffer> <silent> <F8> :TlistToggle<CR>
@@ -69,6 +57,18 @@ endif
 	nnoremap <buffer> <silent> <A-h> :call hexing#c_hx#HX_header_file()<CR>
 	"nnoremap <buffer> <silent> gf :tabedit <cfile><CR>
 	nnoremap <buffer> <silent> gf :call hexing#c_hx#HX_gf()<CR>
+
+	"inoremap <buffer> <silent> { {}<Left><CR><Up><End><CR>
+	"inoremap <buffer> <silent> [ []<Left>
+	inoremap <buffer> <silent> <CR> <C-R>=pumvisible() ? "\<lt>C-Y>\<lt>C-R>=hexing#hexing_autoload#HX_setion_complete()\<lt>CR>" :  "\<lt>C-R>=hexing#c_hx#HX_keymap_Enter()\<lt>CR>"<CR>
+	inoremap <buffer> <silent> <A-u> <C-R>=hexing#hexing_autoload#HX_popup_setion_completion('*')<CR>
+	inoremap <buffer> <silent> <Esc> <C-R>=hexing#c_hx#HX_keymap_Escape()<CR>
+	imap <buffer> <silent> <F7> <Esc><F7>
+	imap <buffer> <silent> <F5> <Esc><F5>
+	imap <buffer> <silent> <C-F7> <Esc><C-F7>
+	inoremap <buffer> <silent> " <C-R>=hexing#hexing_autoload#HX_pair('"')<CR>
+	inoremap <buffer> <silent> { <C-R>=hexing#c_hx#HX_keymap_Dkh()<CR>
+	inoremap <buffer> <silent> : <C-R>=hexing#c_hx#HX_keymap_Colon()<CR>
 
 	vnoremap <buffer> <silent> <kDivide><kMultiply> :call hexing#c_hx#HX_comment_c()<CR>
 

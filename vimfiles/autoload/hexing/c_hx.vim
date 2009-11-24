@@ -26,6 +26,15 @@ function! hexing#c_hx#HX_header_file() "{{{3
 endfunction
 
 
+function!  hexing#c_hx#HX_syntax_check() "{{{3
+	let tmpfile = tempname()
+	exec 'silent!:!g++ % '.
+				\'-std=c++0x -fsyntax-only -pedantic -pedantic-errors '.
+				\'-Wfatal-errors -Wmissing-include-dirs -Wall -Wextra '.
+				\'2>'.tmpfile."\<CR>"
+	exec 'silent! normal!:vertical sview '.tmpfile."\<CR>"
+endfunction
+
 "key map functions {{{2
 function!  hexing#c_hx#HX_keymap_Enter() "{{{3
 	let l:line = getline('.')
