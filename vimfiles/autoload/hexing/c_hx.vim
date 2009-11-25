@@ -27,12 +27,15 @@ endfunction
 
 
 function!  hexing#c_hx#HX_syntax_check() "{{{3
+	exec "silent! normal! :update\<CR>"
 	let tmpfile = tempname()
 	exec 'silent!:!g++ % '.
 				\'-std=c++0x -fsyntax-only -pedantic -pedantic-errors '.
 				\'-Wfatal-errors -Wmissing-include-dirs -Wall -Wextra '.
 				\'2>'.tmpfile."\<CR>"
-	exec 'silent! normal!:vertical sview '.tmpfile."\<CR>"
+	if 0 != v:shell_error
+		exec 'silent! normal!:vertical sview '.tmpfile."\<CR>"
+	endif
 endfunction
 
 "key map functions {{{2

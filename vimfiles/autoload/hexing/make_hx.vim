@@ -9,7 +9,7 @@ function!  hexing#make_hx#HX_make() "{{{3
 endfunction
 
 function!  hexing#make_hx#HX_auto_variable(c) "{{{3
-	let y = virtcol('.')
+	let y = col('.')
 	let s = getline('.')
 	if y>2 && ('D'==a:c || 'F'==a:c)
 		if '$'==s[y-3] && -1<stridx('@%<?^+*', s[y-2])

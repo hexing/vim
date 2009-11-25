@@ -18,8 +18,10 @@ call omni#cpp#complete#Init()
 		if 1 == localtime()%3
 			let k = len(g:colors_name)%len(lst)
 			exec 'silent! normal :colorscheme ' . lst[k] . "\<CR>"
+			let &titlestring = &titlestring . '|' . lst[k]
 		else
 			colorscheme	hexing_wuye
+			let &titlestring = &titlestring . '|' . 'hexing_wuye'
 		endif
 	endfunction
 
