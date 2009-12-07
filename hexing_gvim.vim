@@ -1,11 +1,6 @@
 "hexing's vim script
 "source $VIM/hexing_gvim.vim
 
-"../hexing_gvim.vim
-"../vim71/colors/hexing_wuye.vim
-"autoload/hexing/hexing_autoload.vim
-"autoload/hexing/hexing_cpp.vim
-
 "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q -f tag01 E:\develop\Core_Libs
 
 "term settings {{{1
@@ -32,8 +27,13 @@
 	set maxfuncdepth=97 more
 	set selection=exclusive "inclusive
 	set bufhidden=
+
+	if executable('mingw32-make.exe')
+		set makeprg=mingw32-make.exe
+	endif
 	set grepprg=grep\ -nHubE
 	"grep -nHubE -d skip -e
+
 	"find -type f -name "*.vim" -maxdepth 1
 	set isfname+=32 "让gf也能查找包含space的文件名
 
