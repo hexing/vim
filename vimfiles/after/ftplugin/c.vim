@@ -40,7 +40,7 @@ endif
 	setlocal cinoptions+=)6 cinoptions+=:0 cinoptions+=(0 cinoptions+=g0 cinoptions-=:0
 	setlocal complete=. complete+=t
 	setlocal foldmethod=syntax foldlevel=9
-	setlocal makeprg=make
+	"setlocal makeprg=make
 	setlocal formatoptions-=cro
 
 	"setlocal guifont=Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b
