@@ -7,7 +7,8 @@
 	set number ruler showcmd showmode "splitright
 	set nospell nocompatible
 	set incsearch hlsearch ignorecase
-	set shortmess=oOtTI
+	set shortmess=oOtTI "启动的时候不显示那个援助索马里儿童的提示
+	"set showmatch "显示匹配括号
 
 	set nowrap whichwrap=b,s	"不自动换行，只有<BS><SPACE>可以在行间回绕
 	set scrolloff=0	scroll=0 sidescroll=1 sidescrolloff=0
@@ -27,6 +28,31 @@
 	set maxfuncdepth=97 more
 	set selection=exclusive "inclusive
 	set bufhidden=
+
+	"文字编码加入utf8
+	" 设定默认解码
+	"set fenc=utf-8
+	"set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+	"set enc=utf-8
+	"let &termencoding=&encoding
+	 
+	"设置语法折叠
+	"set foldmethod=syntax
+	"设置折叠区域的宽度
+	"set foldcolumn=3 
+	"设置为自动关闭折叠
+	"set foldclose=all 
+	 
+	" 用空格键来开关折叠
+	"set foldenable
+	"nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+	 
+	"设置帮助语言
+	"if version >= 603
+	"  set helplang=cn
+	"  set encoding=utf-8
+	"endif
+
 
 	if executable('mingw32-make.exe')
 		set makeprg=mingw32-make.exe
