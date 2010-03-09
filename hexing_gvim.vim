@@ -102,7 +102,8 @@
 	"autoclose.vim {{{2
 		let g:autoclose_on = 1
 
-	"hx
+	"hexing_autoload.vim
+		let g:Ctags = $VIM . '/vimfiles/bin/ctags.exe'
 		let g:TagDirectory = 'b:/tags'
 		call hexing#hexing_autoload#HX_LoadTagFiles(g:TagDirectory . '/*.tag')
 

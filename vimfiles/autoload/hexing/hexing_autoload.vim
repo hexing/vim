@@ -354,6 +354,8 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	function! <SID>HX_GetCtags() "{{{3
 		if !exists('g:Ctags')
 			let g_Ctags = 'ctags.exe'
+		else
+			let g_Ctags = g:Ctags
 		endif
 	
 		if 0 == strlen(g_Ctags) || !executable(g_Ctags)
