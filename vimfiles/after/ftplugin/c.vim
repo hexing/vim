@@ -16,7 +16,7 @@ call omni#cpp#complete#Init()
 		endfor
 
 		if 1 == localtime()%3
-			let k = len(g:colors_name)%len(lst)
+			let k = len(g:colors_name) % len(lst)
 			exec 'silent! normal :colorscheme ' . lst[k] . "\<CR>"
 			let &titlestring = &titlestring . '|' . lst[k]
 		else

@@ -169,3 +169,6 @@
 "}}}1
 
 	colorscheme	random "source $VIMRUNTIME/colors/´ºÉ½Ã¼wuye.vim
+	if &diff
+		call hexing#hexing_autoload#HX_diff_colorscheme()
+	endif
