@@ -245,6 +245,10 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 		endif
 	endfunction
 
+	function! <SID>Get_extension_dll()
+		let sDll = $VIM
+	endfunction
+
 "additional functions {{{2
 	function! hexing#hexing_autoload#HX_toggle_quickfix_wnd() "{{{3 
 		let buf_count = bufnr('$')

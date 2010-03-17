@@ -120,7 +120,7 @@
 "maps {{{1 
 	"normal mode {{{2
 		"nnoremap <F1> :call hexing#hexing_autoload#HX_debug_test()<CR>
-		nnoremap <silent> <Tab> :call hexing#hexing_autoload#HX_switch_showtabline()<CR>
+		nnoremap <silent> <S-Tab> :call hexing#hexing_autoload#HX_switch_showtabline()<CR>
 		nnoremap / :nohlsearch<CR>/
 		nnoremap ? :nohlsearch<CR>?
 		nnoremap <silent> <Esc> :nohlsearch<CR><Esc>
