@@ -462,11 +462,11 @@ function! hexing#hexing_autoload#HX_align_word_column(ln_beg, ln_end) "{{{3
 	endfunction
 
 	function! hexing#hexing_autoload#HX_diff_colorscheme()
-		let noneLst = ['buttercream', 'pyte']
+		let noneLst = ['adobe', 'buttercream', 'professional', 'pyte']
 		for i in noneLst
 			if i == g:colors_name
 				if 0 < localtime()%3
-					let lst = ['wuye', 'python', 'sf']
+					let lst = ['darkspectrum', 'python', 'sf', 'wuye']
 					let k = len(g:colors_name) % len(lst)
 					exec 'silent! normal :colorscheme ' . lst[k] . "\<CR>"
 					let &titlestring = &titlestring . '|' . lst[k]

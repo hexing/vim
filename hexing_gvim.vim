@@ -141,6 +141,7 @@
 		imap <C-CR> <End><CR>
 		inoremap <S-CR> <C-O>O
 		inoremap <Home> <C-O>^
+		inoremap <silent> <C-S> <C-O>:update<CR>
 
 		inoremap <A-o> <C-X><C-O>
 		inoremap <A-u> <C-X><C-U>
