@@ -161,6 +161,12 @@
 	"visual mode {{{2
 		vnoremap <silent> <A-F8> :call hexing#hexing_autoload#HX_align_lines()<CR>
 
+		vnoremap <silent> [ :call hexing#hexing_autoload#HX_make_paire('[')<CR>
+		vnoremap <silent> ( :call hexing#hexing_autoload#HX_make_paire('(')<CR>
+		vnoremap <silent> { :call hexing#hexing_autoload#HX_make_paire('{')<CR>
+		vnoremap <silent> ' :call hexing#hexing_autoload#HX_make_paire("'")<CR>
+		vnoremap <silent> " :call hexing#hexing_autoload#HX_make_paire('"')<CR>
+
 	"map
 		map <kPoint> G
 
