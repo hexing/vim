@@ -28,4 +28,4 @@ function MyDiff()
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
 
-source $VIM/hexing_gvim.vim
+source $VIM/vimrc
