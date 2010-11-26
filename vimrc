@@ -8,15 +8,20 @@
 	syntax on
 	filetype plugin indent on
 
-	set number ruler showcmd showmode more "splitright
+	set number ruler showcmd showmode more
 	set nospell nocompatible
 	set incsearch hlsearch ignorecase
 	set shortmess=oOtTI "启动的时候不显示那个援助索马里儿童的提示
+	set switchbuf=usetab
 	"set showmatch "显示匹配括号
+	"let mapleader=","
+	"set noautoread mouse=a cursorline wildmenu lz hid magic showmatch noerrorbells novisualbell t_vb= splitright
+	"set so=7 cmdheight=2 mat=4
 
 	set nowrap whichwrap=b,s "不自动换行，只有<BS><SPACE>可以在行间回绕
 	set scrolloff=0	scroll=0 sidescroll=1 sidescrolloff=0
 	set textwidth=0 shiftwidth=4 tabstop=4 softtabstop=4
+	set formatoptions+=mM
 	set smartindent autoindent
 	"set autoread
 	"set cdpath path
@@ -28,7 +33,7 @@
 
 	set viminfo= "退出时不保存信息
 	"set bufhidden=
-	set ambiwidth=double nobomb	"设置字节顺序 只有写入的时候才会有效，现在设置是无效的
+	set nobomb	"设置字节顺序 只有写入的时候才会有效，现在设置是无效的
 	set history=9 undolevels=36 maxfuncdepth=97
 	set selection=exclusive "inclusive
 
@@ -38,9 +43,10 @@
 	"文字编码加入utf8
 	" 设定默认解码
 	"set fenc=utf-8
-	"set fencs=utf-8,usc-bom,euc-jp,gb18030,gbk,gb2312,cp936
+	set fencs=usc-bom,utf-8,chinese ",euc-jp,gb18030,gbk,gb2312,cp936
 	"set enc=utf-8
 	"let &termencoding=&encoding
+	set ambiwidth=double
 	 
 	"设置语法折叠
 	"set foldmethod=syntax
@@ -98,7 +104,13 @@ if has("gui_running")
 	"set title titlestring=山横春烟\ %t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 endif
 
-
+" Nice window title
+if has('title') && (has('gui_running') || &title)
+set titlestring=
+set titlestring+=%f\ " file name
+set titlestring+=%h%m%r%w " flag
+set titlestring+=\ -\ %{v:progname} " program name
+endif
 "plugin settings {{{1
 	"taglist.vim {{{2
 		let g:Tlist_Exit_OnlyWindow = 1
@@ -182,7 +194,7 @@ endif
 		vnoremap <silent> ( :call hexing#hexing_autoload#HX_make_paire('(')<CR>
 		vnoremap <silent> { :call hexing#hexing_autoload#HX_make_paire('{')<CR>
 		vnoremap <silent> ' :call hexing#hexing_autoload#HX_make_paire("'")<CR>
-		vnoremap <silent> " :call hexing#hexing_autoload#HX_make_paire('"')<CR>
+		"vnoremap <silent> " :call hexing#hexing_autoload#HX_make_paire('"')<CR>
 
 	"map
 		map <kPoint> G
@@ -196,7 +208,51 @@ endif
 		set t_Co=256
 	endif
 	colorscheme	random "source $VIMRUNTIME/colors/春山眉wuye.vim
-	"echo g:colors_name
 	if &diff
 		call hexing#hexing_autoload#HX_diff_colorscheme()
 	endif
+
+"Format the statusline
+" Nice statusbar
+set laststatus=2
+set statusline=
+set statusline+=%2*%-3.3n%0*\ " buffer number
+set statusline+=%f\ " file name
+set statusline+=%h%1*%m%r%w%0* " flag
+set statusline+=[
+if v:version >= 600
+set statusline+=%{strlen(&ft)?&ft:'none'}, " filetype
+set statusline+=%{&encoding}, " encoding
+endif
+set statusline+=%{&fileformat}] " file format
+if filereadable(expand("$VIM/vimfiles/plugin/vimbuddy.vim"))
+set statusline+=\ %{VimBuddy()} " vim buddy
+endif
+set statusline+=%= " right align
+set statusline+=%2*0x%-8B\ " current char
+set statusline+=%-14.(%l,%c%V%)\ %<%P " offset
+
+" special statusbar for special window
+if has("autocmd")
+au FileType qf
+\ if &buftype == "quickfix" |
+\ setlocal statusline=%2*%-3.3n%0* |
+\ setlocal statusline+=\ \[Compiler\ Messages\] |
+\ setlocal statusline+=%=%2*\ %<%P |
+\ endif
+
+fun! FixMiniBufExplorerTitle()
+if "-MiniBufExplorer-" == bufname("%")
+setlocal statusline=%2*%-3.3n%0*
+setlocal statusline+=\[Buffers\]
+setlocal statusline+=%=%2*\ %<%P
+endif
+endfun
+
+if v:version>=600
+au BufWinEnter *
+\ let oldwinnr=winnr() |
+\ windo call FixMiniBufExplorerTitle() |
+\ exec oldwinnr . " wincmd w"
+endif
+endif

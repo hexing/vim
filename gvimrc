@@ -1,8 +1,9 @@
-set showtabline=0	"Ê¼ÖÕÏÔÊ¾±êÇ©Ò³
-"set guitablabel=%{tabpagenr()}.%t\ %m	"Ã¿¸ötabÉÏÏÔÊ¾±àºÅ
+ï»¿set showtabline=0	"å§‹ç»ˆæ˜¾ç¤ºæ ‡ç­¾é¡µ
+set guioptions-=m
+"set guitablabel=%{tabpagenr()}.%t\ %m	"æ¯ä¸ªtabä¸Šæ˜¾ç¤ºç¼–å·
 
-"set laststatus=2	"×ÜÊÇÏÔÊ¾×´Ì¬À¸
-"if has("statusline")	"×Ô¶¨Òå×´Ì¬À¸µÄÏÔÊ¾ÄÚÈİ
+"set laststatus=2	"æ€»æ˜¯æ˜¾ç¤ºçŠ¶æ€æ 
+"if has("statusline")	"è‡ªå®šä¹‰çŠ¶æ€æ çš„æ˜¾ç¤ºå†…å®¹
 "set statusline=%<%f\ %h%m%r%=%{\"[\".(&fenc==\"\"?&enc:&fenc).((exists(\"+bomb\")\ &&\ &bomb)?\",B\":\"\").\"]\ \"}%k\ %-14.(%l,%c%V%)\ %P 
 "endif
 
@@ -16,8 +17,19 @@ if has("gui_running")
 		else
 			set guioptions+=b guioptions+=L
 		endif
-		autocmd GUIEnter * simalt ~x	"Éè¶¨ windows ÏÂ gvim Æô¶¯Ê±×î´ó»¯
+		autocmd GUIEnter * simalt ~x	"è®¾å®š windows ä¸‹ gvim å¯åŠ¨æ—¶æœ€å¤§åŒ–
 		"set guifont=Vera_Sans_YuanTi_Mono:h13.8:w7.6:b,Bitstream\ Vera\ Sans\ Mono:h11.8:w6.7:b,Arial_monospaced_for_SAP:h11.8:w6.7:b
-		set guifont=ĞÂËÎÌå:h17:w9
+		set guifont=æ–°å®‹ä½“:h17:w9
+	elseif has("gui_gtk2")
+		set guifont=DejaVu\ Sans\ Mono\ 16
+		set guifontwide=AR\ PL\ UKai\ CN\ 16
 	endif
+endif
+
+" Nice window title
+if has('title') && (has('gui_running') || &title)
+set titlestring=
+set titlestring+=%f\ " file name
+set titlestring+=%h%m%r%w " flag
+set titlestring+=\ -\ %{v:progname} " program name
 endif
